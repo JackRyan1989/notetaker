@@ -1,0 +1,26 @@
+{
+  "name": "notetaker",
+  "version": "1.0.0",
+  "description": "PWA Note taking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JackRyan1989/notetaker.git"
+  },
+  "keywords": [
+    "PWA"
+  ],
+  "author": "Jack Ryan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JackRyan1989/notetaker/issues"
+  },
+  "homepage": "https://github.com/JackRyan1989/notetaker#readme",
+  "dependencies": {
+    "polka": "^0.5.2",
+    "sirv": "^1.0.18"
+  }
+}
