@@ -1,7 +1,6 @@
 function handler(instance) {
     return {
         get: function(obj, prop) {
-            console.log('get');
             // Because proxies only work for the top level of the object called on, we need to call proxies on every nested object and array
             if (['object Object', 'object Array'].includes(Object.prototype.toString.call(obj[prop]))) {
                 return new Proxy(obj[prop], handler(instance))
@@ -11,12 +10,9 @@ function handler(instance) {
         }, 
         set: function(obj, prop, value) {
             obj[prop] = value;
-            console.log('set', obj, prop, value);
-            instance.render();
             return true;
         },
         deleteProperty: function(obj, prop) {
-            console.log('delete', obj, prop, obj[prop]);
             delete obj[prop];
             instance.render();
             return true;
@@ -30,17 +26,23 @@ class Component {
         this.elem = document.querySelector(selector);
         this.data = new Proxy(opts.data, handler(this));
         this.template = opts.template;
-    }
-
-    render() {
-        let newElem = this.template(this.data);
-        if (this.elem.innerHTML) {
-            let temp = document.createElement('div');
-            temp.innerHTML = newElem;
-            this.elem.appendChild(temp);
-        } else {
-            this.elem.innerHTML = newElem;
+        this.render = function() {
+            this.elem.innerHTML = this.template(this.data);
         }
+        this.onInput = function(e) {
+            let {id, value} = e.target;
+            if (this.data.id === null) {
+                this.data.id = 1;
+            } 
+            if (id === "title") {
+                this.data.title = value;
+                this.data.timeStamp = Date.now();
+            }
+            if (id === "mainContent") {
+                this.data.content = value;
+            }
+        }
+        this.elem.addEventListener('input', this.onInput.bind(this));
     }
 }
 

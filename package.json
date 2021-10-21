@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/JackRyan1989/notetaker#readme",
   "dependencies": {
+    "dayjs": "^1.10.7",
     "polka": "^0.5.2",
     "sirv": "^1.0.18"
   }

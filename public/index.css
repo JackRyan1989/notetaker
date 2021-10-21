@@ -1,18 +1,30 @@
 body {
     font-family: Helvetica, sans-serif;
+    padding: 0px;
+    margin: 0px;
+}
+
+header {
+    border-bottom: solid 1px lightgray;
 }
 
 h1 {
     font-size: 2em;
+    padding: 0% 1%;
 }
 
+#notesContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 0% 1%;
+}
 .textContainer {
+    width: 50%;
     display: flex;
     flex-direction: column;
 }
-
-textarea {
-    width: 50%;
+label {
+    padding: 1.5% 0%;
 }
 
 #title {

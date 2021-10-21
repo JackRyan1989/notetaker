@@ -14,7 +14,9 @@
     <script type="module" src="app.js" defer></script>
   </head>
   <body>
-    <h1>Note Taker</h1>
+    <header>
+      <h1>Note Taker</h1>
+    </header>
     <!--[if lt IE 7]>
       <p class="browsehappy">
         You are using an <strong>outdated</strong> browser. Please
@@ -22,8 +24,13 @@
       </p>
     <![endif]-->
     <main>
-      <div id="notesContainer"></div>
-      <div id="noteEntryContainer" class="textContainer">
+      <div id="notesContainer">
+        <div id="titleEntryContainer" class="textContainer"></div>
+        <div id="noteEntryContainer" class="textContainer"></div>
+      </div>
+      <div id="buttonsContainer">
+        <div id="saveContainer"></div>
+        <div id="newContainer"></div>
       </div>
     </main>
   </body>
