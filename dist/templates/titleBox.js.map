@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/templates/titleBox.js"],
+  "sourcesContent": ["export default function titleBox(props) {\n  if (!props) {\n    return `<p>No data supplied.</p>`;\n  }\n  return `<label for=\"mainContent\">Title</label> <textarea id=\"title\" name=\"title\" rows=\"1\" cols=\"50\" value=${props.title} placeholder=\"Title\">${props.title}</textarea>`;\n}\n"],
+  "mappings": "MAAe,WAAkB,EAAO,CACtC,MAAK,GAGE,qGAAqG,EAAM,6BAA6B,EAAM,mBAF5I",
+  "names": []
+}

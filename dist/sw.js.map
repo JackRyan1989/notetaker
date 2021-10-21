@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../src/sw.js"],
+  "sourcesContent": ["// Create a list of the files to be cached:\n\nconst cacheName = 'noteTaker-v1';\nconst appShellFiles = [\n    '/notetaker/public/',\n    '/notetaker/public/index.html',\n    '/notetaker/public/app.js',\n    '/notetaker/public/index.css'\n];\n\nself.addEventListener('install', (e) => {\n    console.log('Service Worker Install');\n    e.waitUntil((async ()=> {\n        const cache = await caches.open(cacheName);\n        await cache.addAll(appShellFiles);\n    }))\n})\n\nself.addEventListener('fetch', (e)=> {\n    e.respondWith((async () => {\n        const r = await caches.match(e.request);\n        if (r) return r;\n        const response = await fetch(e.request);\n        const cache = await caches.open(cacheName);\n        cache.put(e.request, response.clone());\n        return response;\n    })());\n})"],
+  "mappings": "MAEA,GAAM,GAAY,eACZ,EAAgB,CAClB,qBACA,+BACA,2BACA,+BAGJ,KAAK,iBAAiB,UAAW,AAAC,GAAM,CACpC,QAAQ,IAAI,0BACZ,EAAE,UAAW,SAAW,CAEpB,KAAM,AADQ,MAAM,QAAO,KAAK,IACpB,OAAO,OAI3B,KAAK,iBAAiB,QAAS,AAAC,GAAK,CACjC,EAAE,YAAa,UAAY,CACvB,GAAM,GAAI,KAAM,QAAO,MAAM,EAAE,SAC/B,GAAI,EAAG,MAAO,GACd,GAAM,GAAW,KAAM,OAAM,EAAE,SAE/B,MADc,MAAM,QAAO,KAAK,IAC1B,IAAI,EAAE,QAAS,EAAS,SACvB",
+  "names": []
+}

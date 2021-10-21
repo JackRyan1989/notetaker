@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Note Taker</title>
+    <meta name="description" content="Note taking progressive web app" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="shortcut icon" type="image/png" href="./assets/logo/favicon-16x16.png"/>
+    <link rel="manifest" href="noteTaker.manifest">
+    <script type="module" src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Note Taker</h1>
+    </header>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <main>
+      <div id="notesContainer">
+        <div id="titleEntryContainer" class="textContainer"></div>
+        <div id="noteEntryContainer" class="textContainer"></div>
+      </div>
+      <div id="buttonsContainer">
+        <div id="saveContainer"></div>
+        <div id="newContainer"></div>
+      </div>
+    </main>
+  </body>
+</html>

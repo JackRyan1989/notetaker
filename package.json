@@ -4,7 +4,8 @@
   "description": "PWA Note taking app",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start": "node index.js",
+    "dev": "nodemon --watch src notetaker/"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,8 @@
   "homepage": "https://github.com/JackRyan1989/notetaker#readme",
   "dependencies": {
     "dayjs": "^1.10.7",
+    "esbuild": "^0.13.8",
+    "idb": "^6.1.5",
     "polka": "^0.5.2",
     "sirv": "^1.0.18"
   }

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/templates/mainContentBox.js"],
+  "sourcesContent": ["export default function mainContentBox(props) {\n  if (!props) {\n    return `<p>No data supplied.</p>`;\n  }\n  return `<label for=\"mainContent\">Notes</label> <textarea id=\"mainContent\" name=\"mainContent\" rows=\"20\" cols=\"100\" value=${props.content} placeholder=\"Notes\">${props.content}</textarea>`;\n}\n"],
+  "mappings": "MAAe,WAAwB,EAAO,CAC5C,MAAK,GAGE,mHAAmH,EAAM,+BAA+B,EAAM,qBAF5J",
+  "names": []
+}

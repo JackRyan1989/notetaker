@@ -3,7 +3,7 @@ const polka = require("polka");
 const { PORT=3000 } = process.env;
 const serve = require('sirv');
 
-const assets = serve('public', {
+const assets = serve('dist', {
   dev:true,
   extensions: ['html', 'js']
 })

@@ -22,13 +22,19 @@ function handler(instance) {
 
 
 class Button {
-    constructor(selector, opts) {
+    constructor(selector, opts, ds) {
         this.elem = document.querySelector(selector);
         this.data = new Proxy(opts.data, handler(this));
         this.template = opts.template;
         this.render = function() {
             this.elem.innerHTML = this.template(this.data);
         }
+        this.onClick = function(e) {
+            if (e.target.id === "save") {
+                ds.addItem(this.data.note.id, this.data.note);
+            }
+        }
+        this.elem.addEventListener('click', this.onClick.bind(this))
     }
 }
 

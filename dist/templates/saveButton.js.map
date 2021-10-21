@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/templates/saveButton.js"],
+  "sourcesContent": ["export default function saveButton(props) {\n    if (!props) {\n        return `<button class=\"saveButton disabled\" aria-disabled=\"true\">Save Note</button>`\n    }\n    return `<button id=\"save\" class=\"saveButton\">Save Note</button>`\n}"],
+  "mappings": "MAAe,WAAoB,EAAO,CACtC,MAAK,GAGE,0DAFI",
+  "names": []
+}

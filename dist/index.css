@@ -1,0 +1,67 @@
+body {
+  font-family: Helvetica, sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+header {
+  border-bottom: solid 1px lightgray;
+}
+
+h1 {
+  font-size: 2em;
+  padding: 0% 1%;
+}
+
+#notesContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0% 1%;
+}
+.textContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+label {
+  padding: 1.5% 0%;
+}
+
+#title {
+  margin-bottom: 2em;
+  height: 1.75em;
+}
+
+#buttonsContainer {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 0% 1%;
+  margin-top: 1%;
+}
+
+#buttonsContainer button {
+  width: 95%;
+  padding: 0% 2.5%;
+  height: 50px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  box-shadow: none;
+  transition: box-shadow .25s;
+}
+
+#buttonsContainer button:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: box-shadow .25s;
+}
+
+.newButton {
+  background-color: rgb(65, 70, 150);
+}
+
+.saveButton {
+  background-color: rgb(65, 150, 136);
+  margin-right: 1.5%;
+}
