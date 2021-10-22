@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../src/index.css"],
-  "sourcesContent": ["body {\n  font-family: Helvetica, sans-serif;\n  padding: 0px;\n  margin: 0px;\n}\n\nheader {\n  border-bottom: solid 1px lightgray;\n}\n\nmain {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  grid-template-rows: auto;\n}\n\nh1 {\n  font-size: 2em;\n  padding: 0% 1%;\n}\n\n#notesContainer {\n  display: flex;\n  flex-direction: column;\n  padding: 0% 1%;\n}\n.textContainer {\n  width: 50%;\n  display: flex;\n  flex-direction: column;\n}\nlabel {\n  padding: 1.5% 0%;\n}\n\n#title {\n  margin-bottom: 2em;\n  height: 1.75em;\n}\n\n#buttonsContainer {\n  width: 50%;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-end;\n  padding: 0% 1%;\n  margin-top: 1%;\n}\n\n#buttonsContainer button {\n  width: 95%;\n  padding: 0% 2.5%;\n  height: 50px;\n  border-radius: 5px;\n  border: none;\n  color: #fff;\n  box-shadow: none;\n  transition: box-shadow .25s;\n}\n\n#buttonsContainer button:hover {\n    box-shadow: 0 4px 12px rgba(0,0,0,0.3);\n    transition: box-shadow .25s;\n}\n\n.newButton {\n  background-color: rgb(65, 70, 150);\n}\n\n.saveButton {\n  background-color: rgb(65, 150, 136);\n  margin-right: 1.5%;\n}\n"],
-  "mappings": "AAAA,KACE,iCADF,mBAMA,OACE,kCAGF,KACE,aACA,8BACA,wBAGF,GACE,cAjBF,cAqBA,gBACE,aACA,sBAvBF,cA0BA,eACE,UACA,aACA,sBAEF,MA/BA,gBAmCA,OACE,kBACA,cAGF,kBACE,UACA,aACA,mBACA,yBA5CF,cA8CE,cAGF,yBACE,UAlDF,gBAoDE,YApDF,kBAsDE,YACA,WACA,gBACA,2BAGF,+BACI,qCACA,2BAGJ,WACE,yBAGF,YACE,yBACA",
-  "names": []
-}

@@ -28,6 +28,11 @@ let note = {
 };
 let notes = [];
 
+async function getData() {
+  let data = await ds.getItems()
+  return data;
+}
+
 (async () => {
   let titleEntry = new Component("#titleEntryContainer", {
     data: note,
@@ -37,23 +42,23 @@ let notes = [];
     data: note,
     template: mainContentBox,
   });
+  let list = new NoteList("#notesListContainer", await getData(), {
+    template: notesList}, getData);
   let saveB = new Button(
     "#saveContainer",
     { data: { note, notes }, template: saveButton },
-    ds
+    ds, list
   );
   let newB = new Button(
     "#newContainer",
     { data: { note, notes }, template: newButton },
-    ds
+    ds, [titleEntry, mainEntry]
   );
-  let list = await new NoteList("#notesListContainer", ds, {
-    template: notesList,
-  });
 
   titleEntry.render();
   mainEntry.render();
   saveB.render();
   newB.render();
   list.render();
+  list.addOpenListener();
 })();

@@ -51,7 +51,6 @@ async function getItems() {
     console.log(err);
     return [];
   }
-  console.log(notes);
   return notes;
 }
 

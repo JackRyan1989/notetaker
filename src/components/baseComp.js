@@ -26,8 +26,12 @@ class Component {
         this.elem = document.querySelector(selector);
         this.data = new Proxy(opts.data, handler(this));
         this.template = opts.template;
-        this.render = function() {
-            this.elem.innerHTML = this.template(this.data);
+        this.render = function(data) {
+            if (data) {
+                this.elem.innerHTML = this.template(data);
+            } else {
+                this.elem.innerHTML = this.template(this.data);
+            }
         }
         this.onInput = function(e) {
             let {id, value} = e.target;
