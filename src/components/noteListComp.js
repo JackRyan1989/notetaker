@@ -10,6 +10,7 @@ function handler(instance) {
         }, 
         set: function(obj, prop, value) {
             obj[prop] = value;
+            instance.render();
             return true;
         },
         deleteProperty: function(obj, prop) {
@@ -23,19 +24,19 @@ function handler(instance) {
 
 class NoteList {
     constructor(selector, ds, template) {
-        this.elem = document.querySelector(selector);
-        //Call the data from the store:
-        this.rawData = [];
-        // Put it into state:
-        this.data = new Proxy(this.rawData, handler(this));
-        this.template = template.template;
-        this.render = function() {
-            this.elem.innerHTML = this.template(this.data);
-        }
-        this.getItems = ds.getItems().then(function(result) {
-            console.log(result)
-            rawData = result;
-        });
+        return (async()=> {
+            this.elem = document.querySelector(selector);    
+            //Call the data from the store:
+            this.rawData = await ds.getItems();
+            // Put it into state:
+            this.data = new Proxy(this.rawData, handler(this));
+            this.template = template.template;
+            this.render = function() {
+                this.elem.innerHTML = this.template(this.data);
+            }
+
+            return this;
+        })();
     }
 }
 

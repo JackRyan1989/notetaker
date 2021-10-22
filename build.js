@@ -15,6 +15,6 @@ require("esbuild").buildSync({
   bundle: true,
   minify: true,
   sourcemap: true,
-  target: ["chrome60", "firefox60", "safari13", "edge20"],
+  target: ["chrome89", "firefox89", "safari15", "edge89"],
   outdir: "./dist",
 });

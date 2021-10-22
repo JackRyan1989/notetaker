@@ -19,13 +19,15 @@ async function addItem(key,val) {
   });
 
   // Add a note:
-  await db.add(storeName, {
-    title: val.title,
-    timeStamp: val.timeStamp,
-    content: val.content,
-  });
-
-  return true;
+  try {
+    await db.add(storeName, {
+      title: val.title,
+      timeStamp: val.timeStamp,
+      content: val.content,
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function getItems() {
@@ -38,17 +40,18 @@ async function getItems() {
         // If it isn't explicitly set, create a value by auto incrementing.
         autoIncrement: true,
       });
-      // Create an index on the 'date' property of the objects.
-      //store.createIndex('timeStamp', 'timeStamp');
+      // Create an index on the 'timeStamp' property of the objects.
+      store.createIndex('timeStamp', 'timeStamp');
     },
   });
 
   try {
-    notes = await db.getAllFromIndex(storeName);
+    notes = await db.getAllFromIndex(storeName, 'timeStamp');
   } catch (err) {
     console.log(err);
     return [];
   }
+  console.log(notes);
   return notes;
 }
 

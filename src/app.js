@@ -15,27 +15,45 @@ import notesList from "./templates/notesList";
 import * as ds from "./dataStore/dataStore";
 
 // Register the service worker:
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js');
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
 }
 
 // Our data:
 let note = {
-    id: null,
-    timeStamp: null,
-    title: "",
-    content: ""
-}
+  id: null,
+  timeStamp: null,
+  title: "",
+  content: "",
+};
 let notes = [];
 
-let titleEntry  = new Component("#titleEntryContainer", {data: note, template: titleBox})
-let mainEntry  = new Component("#noteEntryContainer", {data: note, template: mainContentBox}) 
-let saveB = new Button("#saveContainer", {data: {note, notes}, template: saveButton}, ds);
-let newB = new Button("#newContainer", {data: {note, notes}, template: newButton}, ds);
-let list = new NoteList("#notesListContainer", ds, {template: notesList})
+(async () => {
+  let titleEntry = new Component("#titleEntryContainer", {
+    data: note,
+    template: titleBox,
+  });
+  let mainEntry = new Component("#noteEntryContainer", {
+    data: note,
+    template: mainContentBox,
+  });
+  let saveB = new Button(
+    "#saveContainer",
+    { data: { note, notes }, template: saveButton },
+    ds
+  );
+  let newB = new Button(
+    "#newContainer",
+    { data: { note, notes }, template: newButton },
+    ds
+  );
+  let list = await new NoteList("#notesListContainer", ds, {
+    template: notesList,
+  });
 
-titleEntry.render();
-mainEntry.render();
-saveB.render();
-newB.render();
-list.render();
+  titleEntry.render();
+  mainEntry.render();
+  saveB.render();
+  newB.render();
+  list.render();
+})();
