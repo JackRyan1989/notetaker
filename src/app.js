@@ -2,11 +2,15 @@
 // Components:
 import Component from "./components/baseComp";
 import Button from "./components/button";
+import NoteList from "./components/noteListComp";
+
 // Templates:
 import mainContentBox from "./templates/mainContentBox";
 import titleBox from "./templates/titleBox";
 import saveButton from "./templates/saveButton";
 import newButton from "./templates/newButton";
+import notesList from "./templates/notesList";
+
 //Data store:
 import * as ds from "./dataStore/dataStore";
 
@@ -28,9 +32,10 @@ let titleEntry  = new Component("#titleEntryContainer", {data: note, template: t
 let mainEntry  = new Component("#noteEntryContainer", {data: note, template: mainContentBox}) 
 let saveB = new Button("#saveContainer", {data: {note, notes}, template: saveButton}, ds);
 let newB = new Button("#newContainer", {data: {note, notes}, template: newButton}, ds);
-
+let list = new NoteList("#notesListContainer", ds, {template: notesList})
 
 titleEntry.render();
 mainEntry.render();
 saveB.render();
 newB.render();
+list.render();

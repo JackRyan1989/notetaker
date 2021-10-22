@@ -10,9 +10,13 @@
     <title>Note Taker</title>
     <meta name="description" content="Note taking progressive web app" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./index.css" />
-    <link rel="shortcut icon" type="image/png" href="./assets/logo/favicon-16x16.png"/>
-    <link rel="manifest" href="noteTaker.manifest">
+    <link rel="stylesheet" href="./src.css" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="./assets/logo/favicon-16x16.png"
+    />
+    <link rel="manifest" href="noteTaker.manifest" />
     <script type="module" src="app.js" defer></script>
   </head>
   <body>
@@ -26,13 +30,18 @@
       </p>
     <![endif]-->
     <main>
-      <div id="notesContainer">
-        <div id="titleEntryContainer" class="textContainer"></div>
-        <div id="noteEntryContainer" class="textContainer"></div>
+      <div class="col1">
+        <div id="notesContainer">
+          <div id="titleEntryContainer" class="textContainer"></div>
+          <div id="noteEntryContainer" class="textContainer"></div>
+        </div>
+        <div id="buttonsContainer">
+          <div id="saveContainer"></div>
+          <div id="newContainer"></div>
+        </div>
       </div>
-      <div id="buttonsContainer">
-        <div id="saveContainer"></div>
-        <div id="newContainer"></div>
+      <div class="col2">
+        <div id="notesListContainer"></div>
       </div>
     </main>
   </body>

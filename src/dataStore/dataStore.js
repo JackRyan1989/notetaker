@@ -3,6 +3,7 @@ import { openDB } from "idb";
 const dbName = "notesDB";
 const storeName = "notesStore";
 const version = 1; //versions start at 1
+let notes;
 
 async function addItem(key,val) {
   const db = await openDB(dbName, version, {
@@ -38,11 +39,16 @@ async function getItems() {
         autoIncrement: true,
       });
       // Create an index on the 'date' property of the objects.
-      store.createIndex('timeStamp', 'timeStamp');
+      //store.createIndex('timeStamp', 'timeStamp');
     },
   });
 
-  let notes = await db.getAllFromIndex('articles', 'date')
+  try {
+    notes = await db.getAllFromIndex(storeName);
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
   return notes;
 }
 

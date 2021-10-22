@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/templates/notesList.js"],
+  "sourcesContent": ["export default function notesList(props) {\n    if (props.length === 0) {\n      return `<p>No data supplied.</p>`;\n    }\n    if (!props) {\n        return `<p>Loading...</p>`;\n    }\n    return `${props}`;\n  }"],
+  "mappings": "MAAe,WAAmB,EAAO,CACrC,MAAI,GAAM,SAAW,EACZ,2BAEJ,EAGE,GAAG,IAFC",
+  "names": []
+}
