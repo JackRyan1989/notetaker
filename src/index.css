@@ -2,13 +2,26 @@ body {
   font-family: Helvetica, sans-serif;
   padding: 0px;
   margin: 0px;
+  display: grid;
+  grid-template-columns: minmax(10px, 1fr) minmax(10px, 3fr);
+  grid-template-rows: min-content min-content 1fr min-content;
+  gap: 1px;
+
 }
 
 header {
   border-bottom: solid 1px lightgray;
+  grid-column: 1 / -1;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  z-index: 2;
 }
 
 main {
+  position: relative;
+  grid-column: 1/-1;
   display: grid;
   grid-template-columns: 2fr 1fr;
   grid-template-rows: auto;
@@ -20,9 +33,11 @@ h1 {
 }
 
 #notesContainer {
+  position: fixed;
   display: flex;
   flex-direction: column;
-  padding: 0% 1%;
+  padding: 12vh 1% 1% 1%;
+  z-index: 3;
 }
 .textContainer {
   width: 75%;
@@ -31,6 +46,11 @@ h1 {
 }
 label {
   padding: 1.5% 0%;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.content {
+  padding: 0% 2.5%;
 }
 
 #title {
@@ -43,8 +63,9 @@ label {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  padding: 0% 1%;
+  padding: 80vh 1% 1% 1%;
   margin-top: 1%;
+  position: fixed;
 }
 
 #buttonsContainer button {
@@ -55,12 +76,12 @@ label {
   border: none;
   color: #fff;
   box-shadow: none;
-  transition: box-shadow .25s;
+  transition: box-shadow 0.25s;
 }
 
 #buttonsContainer button:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: box-shadow .25s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.25s;
 }
 
 .newButton {
@@ -74,7 +95,7 @@ label {
 
 .notesWrapper {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
 }
 
 .verticalHolder {
@@ -95,4 +116,10 @@ label {
 
 .shown {
   display: block;
+}
+
+#notesListContainer {
+  overflow-y: scroll;
+  position: relative;
+  padding: 12vh 1% 0% 1%;
 }

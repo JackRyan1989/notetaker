@@ -5,9 +5,9 @@ export default function notesList(props) {
       return `<p>No notes yet! Write something.</p>`;
     }
     return `<div class="notesWrapper">
-      ${props.map(function(prop, index) {
+      ${props.reverse().map(function(prop, index) {
         return `<div class="verticalHolder" id="${index}"><p class="vert">${prop.title} ${dayjs(props.timestamp).format('MM/DD/YYYY')}</p>
-        <div class="hidden" id=${index}><p>${prop.content}</p></div>
+        <div class="hidden" id=${index}><p class="content">${prop.content}</p></div>
         </div>`
       }).join('')}
     </div>`;
