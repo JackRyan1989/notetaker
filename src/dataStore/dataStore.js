@@ -5,19 +5,20 @@ const storeName = "notesStore";
 const version = 1; //versions start at 1
 let notes;
 
-async function addItem(key,val) {
+async function addItem(key, val) {
   const db = await openDB(dbName, version, {
     upgrade(db) {
       // Create a store of objects
       const store = db.createObjectStore(storeName, {
         // The 'id' property of the object will be the key.
-        keyPath: 'id',
+        keyPath: "id",
         // If it isn't explicitly set, create a value by auto incrementing.
         autoIncrement: true,
       });
+      // Create an index on the 'timeStamp' property of the objects.
+      store.createIndex("timeStamp", "timeStamp");
     },
   });
-
   // Add a note:
   try {
     await db.add(storeName, {
@@ -36,17 +37,16 @@ async function getItems() {
       // Create a store of objects
       const store = db.createObjectStore(storeName, {
         // The 'id' property of the object will be the key.
-        keyPath: 'id',
+        keyPath: "id",
         // If it isn't explicitly set, create a value by auto incrementing.
         autoIncrement: true,
       });
       // Create an index on the 'timeStamp' property of the objects.
-      store.createIndex('timeStamp', 'timeStamp');
+      store.createIndex("timeStamp", "timeStamp");
     },
   });
-
   try {
-    notes = await db.getAllFromIndex(storeName, 'timeStamp');
+    notes = await db.getAllFromIndex(storeName, "timeStamp");
   } catch (err) {
     console.log(err);
     return [];
@@ -54,4 +54,28 @@ async function getItems() {
   return notes;
 }
 
-export {addItem, getItems};
+async function deleteNote(key) {
+  key = parseInt(key);
+  const db = await openDB(dbName, version, {
+    upgrade(db) {
+      // Create a store of objects
+      const store = db.createObjectStore(storeName, {
+        // The 'id' property of the object will be the key.
+        keyPath: "id",
+        // If it isn't explicitly set, create a value by auto incrementing.
+        autoIncrement: true,
+      });
+      // Create an index on the 'timeStamp' property of the objects.
+      store.createIndex("timeStamp", "timeStamp");
+    },
+  });
+  try {
+    notes = await db.delete(storeName, key);
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+  return notes;
+}
+
+export { addItem, getItems, deleteNote };

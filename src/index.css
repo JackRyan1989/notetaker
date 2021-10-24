@@ -68,7 +68,7 @@ label {
   position: fixed;
 }
 
-#buttonsContainer button {
+button {
   width: 95%;
   padding: 0% 2.5%;
   height: 50px;
@@ -79,7 +79,7 @@ label {
   transition: box-shadow 0.25s;
 }
 
-#buttonsContainer button:hover {
+button:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: box-shadow 0.25s;
 }
@@ -122,4 +122,19 @@ label {
   overflow-y: scroll;
   position: relative;
   padding: 12vh 1% 0% 1%;
+}
+
+#delBtnHolder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.deleteButton {
+  width: 50%;
+  position: relative;
+  z-index: 100;
+  background-color: rgb(211, 117, 117);
+  margin-bottom: 2.5%;
+  color: white;
 }

@@ -30,7 +30,6 @@ class Button {
     this.data = new Proxy(opts.data, handler(this));
     this.template = opts.template;
     this.render = function () {
-        console.log('button rerender')
       this.elem.innerHTML = this.template(this.data);
     };
     this.onClick = function (e) {
