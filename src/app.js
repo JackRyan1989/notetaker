@@ -1,4 +1,9 @@
 // Imports:
+//Deps:
+import TurndownService from "turndown";
+const turndownService = new TurndownService();
+import { saveAs } from 'file-saver';
+
 // Components:
 import Component from "./components/baseComp";
 import Button from "./components/button";
@@ -10,6 +15,7 @@ import titleBox from "./templates/titleBox";
 import saveButton from "./templates/saveButton";
 import newButton from "./templates/newButton";
 import notesList from "./templates/notesList";
+import downloadButton from "./templates/download";
 
 //Data store:
 import * as ds from "./dataStore/dataStore";
@@ -54,11 +60,17 @@ async function getData() {
     { data: { note, notes }, template: newButton },
     ds, [titleEntry, mainEntry]
   );
+  let dlBtn = new Button(
+    "#dlContainer", 
+    {data: {notes}, template: downloadButton},
+    ds, [], turndownService, saveAs
+  )
 
   titleEntry.render();
   mainEntry.render();
   saveB.render();
   newB.render();
+  dlBtn.render();
   list.render();
   list.addOpenListener();
 })();

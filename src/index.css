@@ -23,7 +23,7 @@ main {
   position: relative;
   grid-column: 1/-1;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: .75fr 1fr;
   grid-template-rows: auto;
 }
 
@@ -50,7 +50,10 @@ label {
   font-weight: bold;
 }
 .content {
+  font-size: 1rem;
+  font-weight: normal;
   padding: 0% 2.5%;
+  text-transform: none;
 }
 
 #title {
@@ -86,11 +89,16 @@ button:hover {
 
 .newButton {
   background-color: rgb(65, 70, 150);
+  margin-right: 1.5%;
 }
 
 .saveButton {
   background-color: rgb(65, 150, 136);
   margin-right: 1.5%;
+}
+
+.downloadButton {
+  background-color: royalblue;
 }
 
 .notesWrapper {
@@ -101,13 +109,16 @@ button:hover {
 .verticalHolder {
   width: 75%;
   height: max-content;
-  border-bottom: solid grey 1px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 2%;
 }
 
 .vert {
-  font-size: 1.75rem;
+  font-size: 1.1rem;
   font-weight: bold;
   text-transform: uppercase;
+  text-decoration: none;
 }
 
 .hidden {
@@ -137,4 +148,30 @@ button:hover {
   background-color: rgb(211, 117, 117);
   margin-bottom: 2.5%;
   color: white;
+  text-decoration: none;
+}
+
+ul, li {
+  list-style: none;
+}
+
+.year, .month {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.year{
+  font-size: 1.75rem;
+}
+
+.month {
+  font-size: 1.35rem;
+  padding: 2%;
+}
+
+.month li span {
+  border-bottom: solid black 1px;
+}
+.year li span:not(.month li span) {
+  border-bottom: solid black 3px;
 }

@@ -25,14 +25,14 @@ function handler(instance) {
 }
 
 class Button {
-  constructor(selector, opts, ds, comps) {
+  constructor(selector, opts, ds, comps, tds, saveAs) {
     this.elem = document.querySelector(selector);
     this.data = new Proxy(opts.data, handler(this));
     this.template = opts.template;
     this.render = function () {
       this.elem.innerHTML = this.template(this.data);
     };
-    this.onClick = function (e) {
+    this.onClick = async function (e) {
       if (e.target.id === "save") {
         ds.addItem(this.data.note.id, this.data.note);
         comps.render();
@@ -41,6 +41,23 @@ class Button {
         let sendData = { id: null, timeStamp: null, title: "", content: "" };
         comps[0].render(sendData);
         comps[1].render(sendData);
+      }
+      if (e.target.id === "download") {
+        let notes = await ds.getItems();
+        if (notes.length === 0) {
+          console.log('No notes!');
+        } else {
+          let html = notes.map((note)=>{
+             return `<h1>${note.title}</h1>
+             <h2>${Date(note.timeStamp).toString()}</h2>
+             <p>${note.content}</p>
+             `
+          });
+          let htmlstr = html.join("\n");
+          let markdown = tds.turndown(htmlstr);
+          let blob = new Blob([markdown], {type: 'text/markdown'});
+          saveAs(blob, 'mynotes.md');
+        }
       }
     };
     this.elem.addEventListener("click", this.onClick.bind(this));

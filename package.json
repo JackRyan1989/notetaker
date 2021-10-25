@@ -23,6 +23,7 @@
   "dependencies": {
     "dayjs": "^1.10.7",
     "esbuild": "^0.13.8",
+    "file-saver": "^2.0.5",
     "idb": "^6.1.5",
     "polka": "^0.5.2",
     "sirv": "^1.0.18",
