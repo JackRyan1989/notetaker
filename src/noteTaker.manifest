@@ -8,7 +8,6 @@
       "sizes": "32x32",
       "type": "image/png"
     },
-    // ...
     {
       "src": "./assets/logo/nt_logo.png",
       "sizes": "128x128",

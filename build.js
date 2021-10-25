@@ -2,16 +2,7 @@ require("esbuild").buildSync({
   entryPoints: [
     "./src/app.js",
     "./src/sw.js",
-    "./src/index.css",
-    "./src/components/baseComp.js",
-    "./src/components/button.js",
-    "./src/components/noteListComp.js",
-    "./src/dataStore/dataStore.js",
-    "./src/templates/mainContentBox.js",
-    "./src/templates/newButton.js",
-    "./src/templates/saveButton.js",
-    "./src/templates/titleBox.js",
-    "./src/templates/notesList.js",
+    "./src/index.css"
   ],
   bundle: true,
   minify: true,
