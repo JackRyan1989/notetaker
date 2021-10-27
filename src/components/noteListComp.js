@@ -27,38 +27,45 @@ function handler(instance) {
 
 class NoteList {
   constructor(selector, data, template, dataFn, ds) {
-      this.elem = document.querySelector(selector);
-      this.visible = false;
-      this.data = new Proxy(data, handler(this));
-      this.template = template.template;
-      this.addOpenListener = function() {
-        const delButton = Array.from(document.getElementsByClassName("deleteButton"));
-        const content = Array.from(
-          document.getElementsByClassName("verticalHolder")
-        );
-        content.forEach((node) => {
-          node.addEventListener("click", () => {
-            if ((node.id === node.childNodes[2].id) && (this.visible === false)) {
-              node.childNodes[2].setAttribute('class', 'shown');
-              this.visible = !this.visible;
-            } else if ((node.id === node.childNodes[2].id) && (this.visible === true)) {
-                node.childNodes[2].setAttribute('class', 'hidden');
-                this.visible = !this.visible;
-            }
-          })
+    this.elem = document.querySelector(selector);
+    this.data = new Proxy(data, handler(this));
+    this.template = template.template;
+    this.addOpenListener = function () {
+      const delButton = Array.from(
+        document.getElementsByClassName("deleteButton")
+      );
+      const content = Array.from(
+        document.getElementsByClassName("verticalHolder")
+      );
+      content.forEach((node) => {
+        node.addEventListener("click", () => {
+          if (
+            (node.id === node.childNodes[2].id) &&
+            (node.childNodes[2].getAttribute("data-closed") === 'true')
+          ) {
+            node.childNodes[2].setAttribute("class", "shown");
+            node.childNodes[2].setAttribute("data-closed", 'false');
+          } else if (
+            (node.id === node.childNodes[2].id) &&
+            (node.childNodes[2].getAttribute("data-closed") === 'false')
+          ) {
+            node.childNodes[2].setAttribute("class", "hidden");
+            node.childNodes[2].setAttribute("data-closed", 'true');
+          }
         });
-       delButton.forEach((button)=> {
-         button.addEventListener("click", () => {
-           ds.deleteNote(button.id);
-           this.render();
-         })
-       }) 
-      }
-      this.render = async function () {
-        this.data = await dataFn();
-        this.elem.innerHTML = this.template(this.data);
-        this.addOpenListener();
-      };
+      });
+      delButton.forEach((button) => {
+        button.addEventListener("click", () => {
+          ds.deleteNote(button.id);
+          this.render();
+        });
+      });
+    };
+    this.render = async function () {
+      this.data = await dataFn();
+      this.elem.innerHTML = this.template(this.data);
+      this.addOpenListener();
+    };
   }
 }
 

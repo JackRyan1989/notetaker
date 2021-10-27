@@ -39,7 +39,7 @@ export default function notesList(props) {
                         dayjs(prop.timestamp).format("MMMM") === month
                       ) {
                         return `<li><div class="verticalHolder" id="${prop.id}"><p class="vert">${prop.title}</p>
-                    <div class="hidden" id=${prop.id}><p class="content">${prop.content}</p> <div id="delBtnHolder"><button id=${prop.id} class="deleteButton">Delete Note</button></div></div>
+                    <div class="hidden" data-closed="true" id=${prop.id}><p class="content">${prop.content}</p> <div id="delBtnHolder"><button id=${prop.id} class="deleteButton">Delete Note</button></div></div>
                     </div></li>`;
                       }
                     })
