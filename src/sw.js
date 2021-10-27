@@ -6,7 +6,8 @@ const appShellFiles = [
     '/notetaker/dist/index.html',
     '/notetaker/dist/app.js',
     '/notetaker/dist/index.css',
-    '/dist/assets/logo/'
+    '/dist/assets/logo/',
+    '/dist/noteTaker.manifest'
 ];
 
 self.addEventListener('install', (e) => {
