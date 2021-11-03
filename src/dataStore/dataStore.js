@@ -5,7 +5,7 @@ const storeName = "notesStore";
 const version = 1; //versions start at 1
 let notes;
 
-async function addItem(key, val) {
+async function addItem(val) {
   const db = await openDB(dbName, version, {
     upgrade(db) {
       // Create a store of objects
@@ -78,4 +78,25 @@ async function deleteNote(key) {
   return notes;
 }
 
-export { addItem, getItems, deleteNote };
+async function updateNote(val, key) {
+  const db = await openDB(dbName, version, {
+    upgrade(db) {
+      // Create a store of objects
+      const store = db.createObjectStore(storeName);
+    },
+  });
+  try {
+    notes = await db.put(storeName, {
+      title: val.title,
+      timeStamp: val.timeStamp,
+      content: val.content,
+      id: key
+    });
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+  return notes;
+}
+
+export { addItem, getItems, deleteNote, updateNote };

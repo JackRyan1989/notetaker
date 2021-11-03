@@ -16,7 +16,7 @@ header {
   top: 0;
   width: 100%;
   background-color: #fff;
-  z-index: 2;
+  z-index: 101;
 }
 
 main {
@@ -114,12 +114,18 @@ button:hover {
   transition: all 0.25s;
 }
 
-.downloadButton {
+.downloadButton,
+.editButton {
   background-color: royalblue;
   transition: all 0.25s;
 }
 
-.downloadButton:hover {
+.editButton {
+  width: 50%;
+}
+
+.downloadButton:hover,
+.editButton:hover {
   background-color: #fff;
   color: royalblue;
   border: solid 2px royalblue;

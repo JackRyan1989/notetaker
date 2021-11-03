@@ -26,11 +26,16 @@ function handler(instance) {
 }
 
 class NoteList {
-  constructor(selector, data, template, dataFn, ds) {
+  constructor(selector, data, template, dataFn, ds, comp) {
     this.elem = document.querySelector(selector);
     this.data = new Proxy(data, handler(this));
+    this.edit = false;
+    this.item = null;
     this.template = template.template;
     this.addOpenListener = function () {
+      const editButton = Array.from(
+        document.getElementsByClassName("editButton")
+      );
       const delButton = Array.from(
         document.getElementsByClassName("deleteButton")
       );
@@ -60,6 +65,15 @@ class NoteList {
           this.render();
         });
       });
+      editButton.forEach((button)=>{
+        button.addEventListener("click", ()=> {
+        this.item = this.data.find(element => element.id.toString() === button.id);
+        console.log(this.item);
+        comp[0].render(this.item); 
+        comp[1].render(this.item);
+        this.edit = true;
+        })
+      })
     };
     this.render = async function () {
       this.data = await dataFn();

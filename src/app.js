@@ -49,7 +49,7 @@ async function getData() {
     template: mainContentBox,
   });
   let list = new NoteList("#notesListContainer", await getData(), {
-    template: notesList}, getData, ds);
+    template: notesList}, getData, ds, [titleEntry, mainEntry]);
   let saveB = new Button(
     "#saveContainer",
     { data: { note, notes }, template: saveButton },
@@ -58,7 +58,7 @@ async function getData() {
   let newB = new Button(
     "#newContainer",
     { data: { note, notes }, template: newButton },
-    ds, [titleEntry, mainEntry]
+    ds, [titleEntry, mainEntry, list]
   );
   let dlBtn = new Button(
     "#dlContainer", 

@@ -33,30 +33,40 @@ class Button {
       this.elem.innerHTML = this.template(this.data);
     };
     this.onClick = async function (e) {
-      if (e.target.id === "save") {
-        ds.addItem(this.data.note.id, this.data.note);
+      if ((e.target.id === "save") && (comps.edit===false)) {
+        ds.addItem(this.data.note);
         comps.render();
       }
+      if ((e.target.id === "save") && (comps.edit)) {
+        this.data.note.id = comps.item.id;
+        this.data.note.timeStamp = comps.item.timeStamp;
+        this.data.note.title = comps.item.title;
+        ds.updateNote(this.data.note, comps.item.id);
+        comps.render();
+        comps.edit = false;
+      }
       if (e.target.id === "new") {
-        let sendData = { id: null, timeStamp: null, title: "", content: "" };
-        comps[0].render(sendData);
-        comps[1].render(sendData);
+        this.data = { id: null, timeStamp: null, title: "", content: "" };
+        comps[0].render(this.data);
+        comps[1].render(this.data);
+        comps[2].render();
+        comps.edit = false;
       }
       if (e.target.id === "download") {
         let notes = await ds.getItems();
         if (notes.length === 0) {
-          console.log('No notes!');
+          console.log("No notes!");
         } else {
-          let html = notes.map((note)=>{
-             return `<h1>${note.title}</h1>
+          let html = notes.map((note) => {
+            return `<h1>${note.title}</h1>
              <h2>${Date(note.timeStamp).toString()}</h2>
              <p>${note.content}</p>
-             `
+             `;
           });
           let htmlstr = html.join("\n");
           let markdown = tds.turndown(htmlstr);
-          let blob = new Blob([markdown], {type: 'text/markdown'});
-          saveAs(blob, 'mynotes.md');
+          let blob = new Blob([markdown], { type: "text/markdown" });
+          saveAs(blob, "mynotes.md");
         }
       }
     };
