@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import sanitizeMarkdown from '../functions/sanitizeMarkdown';
 
 export default function notesList(props) {
   // Lets make an object from props to use to build out the front end
@@ -39,7 +40,7 @@ export default function notesList(props) {
                         dayjs(prop.timestamp).format("MMMM") === month
                       ) {
                         return `<li><div class="verticalHolder" id="${prop.id}"><p class="vert">${prop.title}</p>
-                    <div class="hidden" data-closed="true" id=${prop.id}><p class="content">${prop.content}</p> <div id="delBtnHolder"><button id=${prop.id} class="deleteButton">Delete Note</button></div><div id="editBtnHolder"><button id=${prop.id} class="editButton">Edit Note</button></div></div>
+                    <div class="hidden" data-closed="true" id=${prop.id}><p class="content">${sanitizeMarkdown(prop.content)}</p> <div id="delBtnHolder"><button id=${prop.id} class="deleteButton">Delete Note</button></div><div id="editBtnHolder"><button id=${prop.id} class="editButton">Edit Note</button></div></div>
                     </div></li>`;
                       }
                     })

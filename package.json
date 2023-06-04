@@ -23,9 +23,13 @@
   "homepage": "https://github.com/JackRyan1989/notetaker#readme",
   "dependencies": {
     "dayjs": "^1.10.7",
+    "dompurify": "^3.0.3",
     "esbuild": "^0.13.8",
     "file-saver": "^2.0.5",
     "idb": "^6.1.5",
+    "markdown-it": "^13.0.1",
+    "marked": "^5.0.4",
+    "nodemon": "^2.0.22",
     "polka": "^0.5.2",
     "sirv": "^1.0.18",
     "turndown": "^7.1.1"
