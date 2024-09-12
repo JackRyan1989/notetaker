@@ -1,2 +1,0 @@
-(()=>{var s="noteTaker-v1",n=["/notetaker/dist/","/notetaker/dist/index.html","/notetaker/dist/app.js","/notetaker/dist/index.css","/dist/assets/logo/","/dist/noteTaker.manifest"];self.addEventListener("install",e=>{e.waitUntil(async()=>{await(await caches.open(s)).addAll(n)})});self.addEventListener("fetch",e=>{e.respondWith((async()=>{let t=await caches.match(e.request);if(t)return t;let a=await fetch(e.request);return(await caches.open(s)).put(e.request,a.clone()),a})())});})();
-//# sourceMappingURL=sw.js.map

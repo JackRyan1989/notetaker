@@ -1,37 +1,29 @@
 {
   "name": "notetaker",
-  "version": "1.0.0",
-  "description": "PWA Note taking app",
-  "main": "index.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon --watch src notetaker/",
-    "build": "node build.js"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JackRyan1989/notetaker.git"
-  },
-  "keywords": [
-    "PWA"
-  ],
-  "author": "Jack Ryan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JackRyan1989/notetaker/issues"
-  },
-  "homepage": "https://github.com/JackRyan1989/notetaker#readme",
   "dependencies": {
-    "dayjs": "^1.10.7",
-    "dompurify": "^3.0.3",
-    "esbuild": "^0.13.8",
-    "file-saver": "^2.0.5",
-    "idb": "^6.1.5",
-    "markdown-it": "^13.0.1",
-    "marked": "^5.0.4",
-    "nodemon": "^2.0.22",
-    "polka": "^0.5.2",
-    "sirv": "^1.0.18",
-    "turndown": "^7.1.1"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1",
+    "vite": "^5.4.1"
   }
 }

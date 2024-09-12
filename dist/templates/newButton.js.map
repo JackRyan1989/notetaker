@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/templates/newButton.js"],
-  "sourcesContent": ["export default function newButton(props) {\n    if (!props) {\n        return `<button class=\"newButton disabled\" aria-disabled=\"true\">New Note</button>`\n    }\n    return `<button id=\"new\" class=\"newButton\">New Note</button>`\n}"],
-  "mappings": "MAAe,WAAmB,EAAO,CACrC,MAAK,GAGE,uDAFI",
-  "names": []
-}
