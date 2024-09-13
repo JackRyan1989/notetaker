@@ -4,10 +4,10 @@ interface LayoutProps {
     children: ReactNode,
 }
 
-const Layout = (props: LayoutProps) => {
+const Layout = ({children}: LayoutProps) => {
     return (
         <div className="ds-l-row ds-u-margin--0 full-height">
-            {props.children}
+            {children}
         </div>
     )
 }
