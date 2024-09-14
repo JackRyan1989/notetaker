@@ -1,14 +1,12 @@
 import { Accordion, AccordionItem, Button } from "@cmsgov/design-system"
 import { Note } from "./TextArea"
-import { ReactElement } from "react"
+import { ReactElement, useContext } from "react"
+import NotesContext from './NotesContext'
 
 export type Notes = Array<Note>
 
-export interface NoteDisplayProps {
-    notes: Notes
-}
-
-const NoteDisplay = ({notes}: NoteDisplayProps): ReactElement => {
+const NoteList = (): ReactElement => {
+    const {notes} = useContext(NotesContext)
     return (
         <Accordion bordered>
             {notes.map((note: Note, index: number) => {
@@ -25,4 +23,14 @@ const NoteDisplay = ({notes}: NoteDisplayProps): ReactElement => {
     )
 }
 
-export default NoteDisplay
+const NoteColumn = (): ReactElement => {
+    return (
+      <div className="ds-l-sm-col">
+        <div className="ds-u-margin-top--3">
+          <NoteList />
+        </div>
+      </div>
+    )
+  }
+
+export default NoteColumn

@@ -1,12 +1,12 @@
 import Header from "./components/Header"
 import Layout from "./components/Layout"
-import NoteDisplay, { Notes } from "./components/NoteDisplay"
-import { ReactElement } from "react"
-import TextArea from "./components/TextArea"
+import NoteColumn, { Notes } from "./components/NoteDisplay"
+import { useState } from "react"
+import TextEntryColumn from "./components/TextArea"
+import NotesContext from './components/NotesContext'
 
 function App() {
-
-  const notes: Notes = [
+  const testNotes: Notes = [
     {
       title: 'A singular man.',
       content: 'An unequivocal voice found me alone, in the tub. Listening to whales on acid.',
@@ -23,32 +23,19 @@ function App() {
     }
   ]
 
-  const NoteColumn = (): ReactElement => {
-    return (
-      <div className="ds-l-sm-col">
-        <div className="ds-u-margin-top--3">
-          <NoteDisplay notes={notes} />
-        </div>
-      </div>
-    )
-  }
-
-  const TextEntryColumn = (): ReactElement => {
-    return (
-        <div className="ds-l-lg-col">
-          <TextArea />
-        </div>
-    )
-  }
+  const [notes, setNotes] = useState(testNotes);
 
   return (
-    <>
+    <NotesContext.Provider value={{
+      notes,
+      setNotes
+    }}>
       <Header />
       <Layout>
         <TextEntryColumn/>
         <NoteColumn/>
       </Layout>
-    </>
+    </NotesContext.Provider>
   )
 }
 

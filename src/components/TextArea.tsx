@@ -1,5 +1,6 @@
 import { Button, TextField } from "@cmsgov/design-system";
-import { ReactElement, useState } from "react";
+import { ReactElement, useContext, useState } from "react";
+import NotesContext from './NotesContext'
 
 /*
     Our note data structure which will live in the Indexed DB in the browser.
@@ -18,6 +19,7 @@ const TextArea = (): ReactElement => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState('');
+    const {notes, setNotes} = useContext(NotesContext);
 
     const onChangeHandler = (event: InputEvent): void => {
         const name: string = (event?.target as HTMLInputElement)?.name;
@@ -41,6 +43,16 @@ const TextArea = (): ReactElement => {
             setError('noteContentEntry')
             console.log(error);
         }
+        if (!error) {
+            const note = {
+                title,
+                content,
+                createdOn: new Date,
+                updatedOn: new Date,
+                id: Math.random() * 100
+            }
+            setNotes([...notes, note])
+        }
     }
 
     return (
@@ -52,4 +64,12 @@ const TextArea = (): ReactElement => {
     )
 }
 
-export default TextArea
+const TextEntryColumn = (): ReactElement => {
+    return (
+        <div className="ds-l-lg-col">
+          <TextArea />
+        </div>
+    )
+  }
+
+export default TextEntryColumn
