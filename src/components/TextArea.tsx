@@ -16,14 +16,24 @@ export interface Note {
 
 
 const TextArea = (): ReactElement => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
     const [error, setError] = useState('');
-    const {notes, setNotes, editing, setEditing, editNoteId, setEditNoteId} = useContext(NotesContext);
+    const {notes,
+        setNotes,
+        editing,
+        setEditing,
+        editNoteId,
+        setEditNoteId,
+        title,
+        content,
+        setTitle,
+        setContent,
+        valueLock,
+        setValueLock} = useContext(NotesContext);
 
     const onChangeHandler = (event: InputEvent): void => {
         const name: string = (event?.target as HTMLInputElement)?.name;
         const value: string = (event?.target as HTMLTextAreaElement)?.value;
+        setValueLock(true)
         if (value) {
             setError('')
             if (name === 'noteTitleEntry') {
@@ -34,14 +44,12 @@ const TextArea = (): ReactElement => {
         }
     }
 
-    const onClickHandler = (event: SubmitEvent): void => {
+    const onSaveHandler = (event: SubmitEvent): void => {
         event.preventDefault();
         if (title.length === 0) {
             setError('noteTitleEntry')
-            console.log(error);
         } else if (content.length === 0) {
             setError('noteContentEntry')
-            console.log(error);
         }
         if (!error && !editing) {
             const note = {
@@ -49,30 +57,50 @@ const TextArea = (): ReactElement => {
                 content,
                 createdOn: new Date,
                 updatedOn: new Date,
-                id: Math.random() * 100
+                id: Math.floor(Math.random()) * 100
             }
             setNotes([...notes, note])
         } else if (!error && editing) {
-            console.log('editing!', editNoteId)
+            editNote();
             setEditNoteId(null)
             setEditing(false)
         }
+        setValueLock(false)
     }
 
-    const getNoteText = (): Array<string> | string => {
-        for (const note of notes) {
-            if (note.id === editNoteId) {
-                return [note.title, note.content]
-            }
+    const editNote = (): void => {
+        const newNotes = notes;
+        const editNoteIndex = newNotes.findIndex((note: Note) => note.id === parseInt(editNoteId))
+        newNotes[editNoteIndex] = {
+            title,
+            content,
+            createdOn: newNotes[editNoteIndex].createdOn,
+            updatedOn: new Date,
+            id: newNotes[editNoteIndex].id
         }
-        return ''
+        setNotes([...newNotes])
+    }
+
+    const clearValues = (element: HTMLInputElement | HTMLTextAreaElement): void => {
+        if (element && !editing && !valueLock) {
+            element.value = ""
+        }
+    }
+
+    const onCancelHandler = (): void => {
+        setEditing(false)
+        setValueLock(false)
+        setTitle('')
+        setContent('')
+        setEditNoteId(null)
     }
 
     return (
     <div>
-        <TextField value={editing? getNoteText()[0]: ""} name="noteTitleEntry" label="Note Title" onChange={onChangeHandler} autoFocus={true} errorMessage={(error === 'noteTitleEntry') && 'Add note title.'}/>
-        <TextField value={editing? getNoteText()[1] : ""} name="noteContentEntry" label="Note Content" multiline={true} rows={6} onChange={onChangeHandler} errorMessage={(error === 'noteContentEntry') && 'Add note content.'}/>
-        <Button type='submit' className="ds-u-margin-top--3" variation="solid" onClick={onClickHandler}>Save</Button>
+        <TextField placeholder={editing? title: ''} name="noteTitleEntry" label="Note Title" onChange={onChangeHandler} autoFocus={true} errorMessage={(error === 'noteTitleEntry') && 'Add note title.'} inputRef={clearValues}/>
+        <TextField placeholder={editing? content: ''} name="noteContentEntry" label="Note Content" multiline={true} rows={6} onChange={onChangeHandler} errorMessage={(error === 'noteContentEntry') && 'Add note content.'} inputRef={clearValues}/>
+        <Button type='submit' className="ds-u-margin-top--3 ds-u-margin-right--3" variation="solid" onClick={onSaveHandler}>Save</Button>
+        <Button type='button' className="ds-u-margin-top--3 ds-u-margin-right--3" variation="ghost" onClick={onCancelHandler}>Cancel</Button>
     </div>
     )
 }
@@ -84,5 +112,6 @@ const TextEntryColumn = (): ReactElement => {
         </div>
     )
   }
+
 
 export default TextEntryColumn

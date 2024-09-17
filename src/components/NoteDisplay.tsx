@@ -6,7 +6,7 @@ import NotesContext from './NotesContext'
 export type Notes = Array<Note>
 
 const NoteList = (): ReactElement => {
-    const {notes, setEditing, setEditNoteId} = useContext(NotesContext)
+    const {notes, setTitle, setContent, setEditing, setEditNoteId} = useContext(NotesContext)
 
     const editNote =  (event: PointerEvent):void => {
         event.preventDefault();
@@ -15,6 +15,8 @@ const NoteList = (): ReactElement => {
             if (note.id === id) {
                 setEditing(true);
                 setEditNoteId(note.id);
+                setTitle(note.title)
+                setContent(note.content)
             }
         }
     }
@@ -26,8 +28,8 @@ const NoteList = (): ReactElement => {
                     <AccordionItem key={index} heading={note.title}>
                         <p>{note.createdOn.toLocaleString()}</p>
                         <p>{note.content}</p>
-                        <Button id={note.id.toString()} onClick={editNote} className="ds-u-margin-top--3" variation="solid">Edit</Button>
-                        <Button id={note.id.toString()} className="ds-u-margin-top--3" variation="ghost">Delete</Button>
+                        <Button id={`${note.id}`} onClick={editNote} className="ds-u-margin-top--3" variation="solid">Edit</Button>
+                        <Button id={`${note.id}`} className="ds-u-margin-top--3" variation="ghost">Delete</Button>
                     </AccordionItem>
                 )
             })}

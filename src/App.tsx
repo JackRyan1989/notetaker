@@ -9,6 +9,9 @@ function App() {
   const [notes, setNotes] = useState(testNotes);
   const [editing, setEditing] = useState<boolean>(false);
   const [editNoteId, setEditNoteId] = useState<null | number>(null);
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [valueLock, setValueLock] = useState<boolean>(false);
   return (
     <NotesContext.Provider value={{
       notes,
@@ -16,7 +19,13 @@ function App() {
       editing,
       setEditing,
       editNoteId,
-      setEditNoteId
+      setEditNoteId,
+      title,
+      setTitle,
+      content,
+      setContent,
+      valueLock,
+      setValueLock
     }}>
       <Header />
       <Layout>
