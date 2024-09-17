@@ -59,10 +59,19 @@ const TextArea = (): ReactElement => {
         }
     }
 
+    const getNoteText = (): Array<string> | string => {
+        for (const note of notes) {
+            if (note.id === editNoteId) {
+                return [note.title, note.content]
+            }
+        }
+        return ''
+    }
+
     return (
     <div>
-        <TextField name="noteTitleEntry" label="Note Title" onChange={onChangeHandler} autoFocus={true} errorMessage={(error === 'noteTitleEntry') && 'Add note title.'}/>
-        <TextField name="noteContentEntry" label="Note Content" multiline={true} rows={6} onChange={onChangeHandler} errorMessage={(error === 'noteContentEntry') && 'Add note content.'}/>
+        <TextField value={editing? getNoteText()[0]: ""} name="noteTitleEntry" label="Note Title" onChange={onChangeHandler} autoFocus={true} errorMessage={(error === 'noteTitleEntry') && 'Add note title.'}/>
+        <TextField value={editing? getNoteText()[1] : ""} name="noteContentEntry" label="Note Content" multiline={true} rows={6} onChange={onChangeHandler} errorMessage={(error === 'noteContentEntry') && 'Add note content.'}/>
         <Button type='submit' className="ds-u-margin-top--3" variation="solid" onClick={onClickHandler}>Save</Button>
     </div>
     )
