@@ -1,34 +1,22 @@
 import Header from "./components/Header"
 import Layout from "./components/Layout"
-import NoteColumn, { Notes } from "./components/NoteDisplay"
-import { useState } from "react"
+import NoteColumn from "./components/NoteDisplay"
 import TextEntryColumn from "./components/TextArea"
-import NotesContext from './components/NotesContext'
+import NotesContext, { testNotes } from './components/NotesContext'
+import { useState } from "react"
 
 function App() {
-  const testNotes: Notes = [
-    {
-      title: 'A singular man.',
-      content: 'An unequivocal voice found me alone, in the tub. Listening to whales on acid.',
-      createdOn: new Date(),
-      updatedOn: null,
-      id: 1
-    },
-    {
-      title: 'A doubular person.',
-      content: 'An unequivocal voice found me alone, in the tub. Listening to acid on whales.',
-      createdOn: new Date(),
-      updatedOn: null,
-      id: 2
-    }
-  ]
-
   const [notes, setNotes] = useState(testNotes);
-
+  const [editing, setEditing] = useState<boolean>(false);
+  const [editNoteId, setEditNoteId] = useState<null | number>(null);
   return (
     <NotesContext.Provider value={{
       notes,
-      setNotes
+      setNotes,
+      editing,
+      setEditing,
+      editNoteId,
+      setEditNoteId
     }}>
       <Header />
       <Layout>

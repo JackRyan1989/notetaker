@@ -19,7 +19,7 @@ const TextArea = (): ReactElement => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [error, setError] = useState('');
-    const {notes, setNotes} = useContext(NotesContext);
+    const {notes, setNotes, editing, setEditing, editNoteId, setEditNoteId} = useContext(NotesContext);
 
     const onChangeHandler = (event: InputEvent): void => {
         const name: string = (event?.target as HTMLInputElement)?.name;
@@ -43,7 +43,7 @@ const TextArea = (): ReactElement => {
             setError('noteContentEntry')
             console.log(error);
         }
-        if (!error) {
+        if (!error && !editing) {
             const note = {
                 title,
                 content,
@@ -52,6 +52,10 @@ const TextArea = (): ReactElement => {
                 id: Math.random() * 100
             }
             setNotes([...notes, note])
+        } else if (!error && editing) {
+            console.log('editing!', editNoteId)
+            setEditNoteId(null)
+            setEditing(false)
         }
     }
 
