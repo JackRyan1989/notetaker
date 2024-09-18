@@ -1,6 +1,7 @@
 import { Button, TextField } from "@cmsgov/design-system";
-import { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext } from "react";
 import NotesContext from './NotesContext'
+import { makeUintArray } from "../helpers/crypto";
 
 /*
     Our note data structure which will live in the Indexed DB in the browser.
@@ -16,11 +17,12 @@ export interface Note {
 
 
 const TextArea = (): ReactElement => {
-    const [error, setError] = useState('');
     const {notes,
         setNotes,
         editing,
         setEditing,
+        error,
+        setError,
         editNoteId,
         setEditNoteId,
         title,
@@ -57,13 +59,15 @@ const TextArea = (): ReactElement => {
                 content,
                 createdOn: new Date,
                 updatedOn: new Date,
-                id: Math.floor(Math.random()) * 100
+                id: makeUintArray(1)[0]
             }
             setNotes([...notes, note])
+            resetState()
         } else if (!error && editing) {
             editNote();
             setEditNoteId(null)
             setEditing(false)
+            resetState()
         }
         setValueLock(false)
     }
@@ -87,12 +91,16 @@ const TextArea = (): ReactElement => {
         }
     }
 
-    const onCancelHandler = (): void => {
+    const resetState = (): void => {
         setEditing(false)
         setValueLock(false)
         setTitle('')
         setContent('')
         setEditNoteId(null)
+    }
+
+    const onCancelHandler = (): void => {
+        resetState();
     }
 
     return (

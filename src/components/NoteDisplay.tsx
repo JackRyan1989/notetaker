@@ -6,17 +6,18 @@ import NotesContext from './NotesContext'
 export type Notes = Array<Note>
 
 const NoteList = (): ReactElement => {
-    const {notes, setTitle, setContent, setEditing, setEditNoteId} = useContext(NotesContext)
+    const {notes, setTitle, setContent, setEditing, setEditNoteId, setError} = useContext(NotesContext)
 
     const editNote =  (event: PointerEvent):void => {
         event.preventDefault();
         const id = parseInt(event?.target?.id);
         for (let note of notes) {
             if (note.id === id) {
-                setEditing(true);
-                setEditNoteId(note.id);
+                setEditing(true)
+                setEditNoteId(note.id)
                 setTitle(note.title)
                 setContent(note.content)
+                setError(null)
             }
         }
     }
