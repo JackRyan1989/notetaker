@@ -50,15 +50,17 @@ const TextArea = (): ReactElement => {
         event.preventDefault();
         if (title.length === 0) {
             setError('noteTitleEntry')
+            return
         } else if (content.length === 0) {
             setError('noteContentEntry')
+            return
         }
         if (!error && !editing) {
             const note = {
                 title,
                 content,
                 createdOn: new Date,
-                updatedOn: new Date,
+                updatedOn: null,
                 id: makeUintArray(1)[0]
             }
             setNotes([...notes, note])

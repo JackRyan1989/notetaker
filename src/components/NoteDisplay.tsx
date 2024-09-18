@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Button } from "@cmsgov/design-system"
+import { Accordion, AccordionItem, Button, Tooltip } from "@cmsgov/design-system"
 import { Note } from "./TextArea"
 import { ReactElement, useContext } from "react"
 import NotesContext from './NotesContext'
@@ -40,7 +40,7 @@ const NoteList = (): ReactElement => {
             {notes.map((note: Note, index: number) => {
                 return (
                     <AccordionItem key={index} heading={note.title}>
-                        <p>{note.createdOn.toLocaleString()}</p>
+                        <Tooltip placement="left-start" title={"Updated on: " + (note.updatedOn?.toLocaleString() || 'never')} className="ds-c-tooltip__trigger-link" component={'a'}><p>Created on {note.createdOn.toLocaleString()}</p></Tooltip>
                         <p>{note.content}</p>
                         <Button id={`${note.id}`} name="editNote" onClick={changeNote} className="ds-u-margin-top--3" variation="solid">Edit</Button>
                         <Button id={`${note.id}`} name="deleteNote" onClick={changeNote} className="ds-u-margin-top--3" variation="ghost">Delete</Button>
