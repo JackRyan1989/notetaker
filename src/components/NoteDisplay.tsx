@@ -8,11 +8,11 @@ export type Notes = Array<Note>
 const NoteList = (): ReactElement => {
     const {notes, setNotes, setTitle, setContent, setEditing, setEditNoteId, setError} = useContext(NotesContext)
 
-    const changeNote = (event: PointerEvent): void => {
+    const changeNote = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         event.preventDefault();
         const id = parseInt(event?.target?.id);
         const type = event?.target?.name;
-        for (let note of notes) {
+        for (const note of notes) {
             if (note.id === id) {
                 if (type === "editNote") {
                     setEditing(true)
