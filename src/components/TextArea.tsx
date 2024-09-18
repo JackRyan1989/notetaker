@@ -64,7 +64,7 @@ const TextArea = (): ReactElement => {
             setNotes([...notes, note])
             resetState()
         } else if (!error && editing) {
-            editNote();
+            saveEditedNote();
             setEditNoteId(null)
             setEditing(false)
             resetState()
@@ -72,7 +72,7 @@ const TextArea = (): ReactElement => {
         setValueLock(false)
     }
 
-    const editNote = (): void => {
+    const saveEditedNote = (): void => {
         const newNotes = notes;
         const editNoteIndex = newNotes.findIndex((note: Note) => note.id === parseInt(editNoteId))
         newNotes[editNoteIndex] = {

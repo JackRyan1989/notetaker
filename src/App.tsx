@@ -13,10 +13,13 @@ function App() {
   const [content, setContent] = useState<string>('');
   const [valueLock, setValueLock] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [deleteNoteId, setDeleteNoteId] = useState<null | number>(null);
   return (
     <NotesContext.Provider value={{
       notes,
       setNotes,
+      deleteNoteId,
+      setDeleteNoteId,
       editing,
       setEditing,
       editNoteId,
