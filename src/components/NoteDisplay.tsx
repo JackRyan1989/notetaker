@@ -35,12 +35,24 @@ const NoteList = (): ReactElement => {
         setNotes([...newNotes])
     }
 
+    const tooltipContent = (note: Note): ReactElement => {
+        if (note.updatedOn) {
+            return (
+                <Tooltip placement="left-start" title={"Created on " + (note.createdOn?.toLocaleString())} className="ds-c-tooltip__trigger-link" component={'a'}>Last updated {note.updatedOn.toLocaleString()}</Tooltip>
+            )
+        } else {
+            return (
+                <Tooltip placement="left-start" title={"No updates yet."} className="ds-c-tooltip__trigger-link" component={'a'}>Created on {note.createdOn.toLocaleString()}</Tooltip>
+            )
+        }
+    }
+
     return (
         <Accordion bordered>
             {notes.map((note: Note, index: number) => {
                 return (
                     <AccordionItem key={index} heading={note.title}>
-                        <Tooltip placement="left-start" title={"Updated on: " + (note.updatedOn?.toLocaleString() || 'never')} className="ds-c-tooltip__trigger-link" component={'a'}><p>Created on {note.createdOn.toLocaleString()}</p></Tooltip>
+                        {tooltipContent(note)}
                         <p>{note.content}</p>
                         <Button id={`${note.id}`} name="editNote" onClick={changeNote} className="ds-u-margin-top--3" variation="solid">Edit</Button>
                         <Button id={`${note.id}`} name="deleteNote" onClick={changeNote} className="ds-u-margin-top--3" variation="ghost">Delete</Button>
