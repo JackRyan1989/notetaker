@@ -1,9 +1,10 @@
 import Header from "./components/Header"
+import { idbOpener } from "./db/indexedDB"
 import Layout from "./components/Layout"
 import NoteColumn from "./components/NoteDisplay"
 import TextEntryColumn from "./components/TextArea"
 import NotesContext, { testNotes } from './components/NotesContext'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function App() {
   const [notes, setNotes] = useState(testNotes);
@@ -14,6 +15,9 @@ function App() {
   const [valueLock, setValueLock] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [deleteNoteId, setDeleteNoteId] = useState<null | number>(null);
+
+  idbOpener();
+
   return (
     <NotesContext.Provider value={{
       notes,
