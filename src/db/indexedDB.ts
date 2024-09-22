@@ -30,17 +30,17 @@ const idbOpener = (): void | Error => {
 
     request.onsuccess = (evt): void => {
         db = (evt.target as IDBOpenDBRequest)?.result;
-        console.log(db)
     }
 
     request.onupgradeneeded = (evt): void => {
-        console.log("openDb.onupgradeneeded");
-        const store = (evt.target as IDBOpenDBRequest)?.result.createObjectStore(
+        const db = (evt.target as IDBOpenDBRequest)?.result
+        console.log(db)
+        const store = db.createObjectStore(
           dbStoreName, { keyPath: 'id', autoIncrement: true });
 
         store.createIndex('title', 'title', { unique: false });
-        store.createIndex('createdOn', 'created-date', { unique: false });
-        store.createIndex('updatedOn', 'updated-date', { unique: false });
+        store.createIndex('createdOn', 'createdOn', { unique: false });
+        store.createIndex('updatedOn', 'updatedOn', { unique: false });
       };
 }
 
