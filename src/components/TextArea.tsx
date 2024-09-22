@@ -2,6 +2,7 @@ import { Button, TextField } from "@cmsgov/design-system";
 import { ReactElement, useContext } from "react";
 import NotesContext from './NotesContext'
 import { makeUintArray } from "../helpers/crypto";
+import omit from "../helpers/omit";
 
 /*
     Our note data structure which will live in the Indexed DB in the browser.
@@ -12,9 +13,9 @@ export interface Note {
     content: string,
     createdOn: Date | string,
     updatedOn: null | Date | string,
-    id: number
+    id: number,
+    prevVersions: Array<Note>
 }
-
 
 const TextArea = (): ReactElement => {
     const {notes,
@@ -61,7 +62,8 @@ const TextArea = (): ReactElement => {
                 content,
                 createdOn: new Date,
                 updatedOn: null,
-                id: makeUintArray(1)[0]
+                id: makeUintArray(1)[0],
+                prevVersions: []
             }
             setNotes([...notes, note])
             resetState()
@@ -82,9 +84,11 @@ const TextArea = (): ReactElement => {
             content,
             createdOn: newNotes[editNoteIndex].createdOn,
             updatedOn: new Date,
-            id: newNotes[editNoteIndex].id
+            id: newNotes[editNoteIndex].id,
+            prevVersions: [...notes[editNoteIndex].prevVersions, omit('prevVersions', notes[editNoteIndex])]
         }
         setNotes([...newNotes])
+        console.log(notes)
     }
 
     const clearValues = (element: HTMLInputElement | HTMLTextAreaElement): void => {
