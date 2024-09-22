@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Button, Tooltip } from "@cmsgov/design-system"
+import { Accordion, AccordionItem, Alert, Button, Tooltip } from "@cmsgov/design-system"
 import { Note } from "./TextArea"
 import { ReactElement, useContext } from "react"
 import NotesContext from './NotesContext'
@@ -47,9 +47,11 @@ const NoteList = (): ReactElement => {
         }
     }
 
+    console.log(notes)
+
     return (
         <Accordion bordered>
-            {notes.map((note: Note, index: number) => {
+            {notes.length > 0 ? notes.map((note: Note, index: number) => {
                 return (
                     <AccordionItem key={index} heading={note.title}>
                         {tooltipContent(note)}
@@ -58,7 +60,9 @@ const NoteList = (): ReactElement => {
                         <Button id={`${note.id}`} name="deleteNote" onClick={changeNote} className="ds-u-margin-top--3" variation="ghost">Delete</Button>
                     </AccordionItem>
                 )
-            })}
+            }) :
+            <Alert heading="No notes yet.">Add notes via the text box next door to get started!</Alert>
+            }
         </Accordion>
     )
 }
