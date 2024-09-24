@@ -3,19 +3,7 @@ import { ReactElement, useContext } from "react";
 import NotesContext from './NotesContext'
 import { makeUintArray } from "../helpers/crypto";
 import omit from "../helpers/omit";
-
-/*
-    Our note data structure which will live in the Indexed DB in the browser.
-    Composed of items from state and generate onclick.
-*/
-export interface Note {
-    title: string,
-    content: string,
-    createdOn: Date | string,
-    updatedOn: null | Date | string,
-    id: number,
-    prevVersions: Array<Note>
-}
+import { Note } from './NoteDisplay'
 
 const TextArea = (): ReactElement => {
     const {notes,

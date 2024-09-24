@@ -1,8 +1,15 @@
 import { Accordion, AccordionItem, Alert, Button, Tooltip } from "@cmsgov/design-system"
-import { Note } from "./TextArea"
 import { ReactElement, useContext } from "react"
 import NotesContext from './NotesContext'
 
+export interface Note {
+    title: string,
+    content: string,
+    createdOn: Date | string,
+    updatedOn: null | Date | string,
+    id: number,
+    prevVersions: Array<Note>
+}
 export type Notes = Array<Note>
 
 const NoteList = (): ReactElement => {

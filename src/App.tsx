@@ -16,7 +16,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [deleteNoteId, setDeleteNoteId] = useState<null | number>(null);
 
-  idbOpener();
+  const db = idbOpener();
 
   return (
     <NotesContext.Provider value={{
