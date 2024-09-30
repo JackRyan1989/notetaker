@@ -58,9 +58,17 @@ const NoteList = (): ReactElement => {
         }
     }
 
+    const sortNotes = (): Notes => {
+        return notes.toSorted((firstNote: Note, nextNote: Note)=>{
+            return (new Date(firstNote['createdOn']) as any) - (new Date(nextNote['createdOn']) as any)
+        })
+    }
+
+    const sortedNotes = sortNotes();
+
     return (
         <Accordion bordered>
-            {notes.length > 0 ? notes.map((note: Note, index: number) => {
+            {sortedNotes.length > 0 ? sortedNotes.map((note: Note, index: number) => {
                 return (
                     <AccordionItem key={index} heading={note.title}>
                         {tooltipContent(note)}

@@ -47,10 +47,14 @@ export async function addNote(note: Note): Promise<number> {
     return (await notesDBPromise).add(dbStoreName, note)
 }
 
-export async function updateNote(val: Note) {
+export async function updateNote(val: Note): Promise<number> {
     return (await notesDBPromise).put(dbStoreName, val);
 }
 
-export async function deleteNote(key: number) {
+export async function deleteNote(key: number): Promise<void> {
     return (await notesDBPromise).delete(dbStoreName, key);
+}
+
+export async function getNotes(): Promise<Note[]> {
+    return (await notesDBPromise).getAll(dbStoreName);
 }
