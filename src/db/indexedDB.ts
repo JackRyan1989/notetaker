@@ -51,7 +51,6 @@ export async function updateNote(val: Note) {
     return (await notesDBPromise).put(dbStoreName, val);
 }
 
-
 export async function deleteNote(key: number) {
     return (await notesDBPromise).delete(dbStoreName, key);
 }
