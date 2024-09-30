@@ -1,6 +1,7 @@
 import { Accordion, AccordionItem, Alert, Button, Tooltip } from "@cmsgov/design-system"
 import { ReactElement, useContext } from "react"
 import NotesContext from './NotesContext'
+import { idbAvailable, deleteNote } from "../db/indexedDB";
 
 export interface Note {
     title: string,
@@ -29,17 +30,20 @@ const NoteList = (): ReactElement => {
                     setError(null)
                 } else if (type === "deleteNote") {
                     setError(null)
-                    deleteNote(note.id);
+                    deleteNoteHandler(note.id);
                 }
             }
         }
     }
 
-    const deleteNote = (id: number): void => {
+    const deleteNoteHandler = (id: number): void => {
         const newNotes = notes;
         const deleteNoteIndex = newNotes.findIndex((note: Note) => note.id === id)
         newNotes.splice(deleteNoteIndex, 1)
         setNotes([...newNotes])
+        if (idbAvailable()) {
+            deleteNote(id);
+        }
     }
 
     const tooltipContent = (note: Note): ReactElement => {
@@ -53,8 +57,6 @@ const NoteList = (): ReactElement => {
             )
         }
     }
-
-    console.log(notes)
 
     return (
         <Accordion bordered>

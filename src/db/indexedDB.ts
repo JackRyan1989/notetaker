@@ -1,76 +1,57 @@
-import { Note } from "../components/NoteDisplay";
+import { openDB, DBSchema } from 'idb';
+import { Note } from '../components/NoteDisplay';
 
-type Mode = 'readonly' | 'readwrite' | 'versionchange'
+interface NotesDB extends DBSchema {
+    'notes': {
+        key: number;
+        value: Note;
+        indexes: { 'title': string;
+        'createdOn': Date;
+        'updatedOn': Date;
+    };
+    }
+  }
 
 const dbName = 'note-content-and-history-db';
 const versionNumber = 1;
 const dbStoreName = 'notes';
 
-const idbAvailable = (): boolean => {
+export const idbAvailable = (): boolean => {
     const idb = window.indexedDB;
     return idb ? true : false
 }
 
-const idbUnavailableError = (): Error => {
+export const idbUnavailableError = (): Error => {
     const message = "IndexedDB is not available in this browser."
     console.error(message);
     throw new Error(message)
 }
 
-const idbOpener = (): void | Error => {
-    let idb: IDBFactory;
-    let db: IDBDatabase;
+const notesDBPromise =  await openDB<NotesDB>(dbName, versionNumber, {
+        upgrade(db) {
+          // Create a store of objects
+          const store = db.createObjectStore(dbStoreName, {
+            // The 'id' property of the object will be the key.
+            keyPath: 'id',
+            // If it isn't explicitly set, create a value by auto incrementing.
+            autoIncrement: true,
+          });
+          // Create an index on the properties we think we'll query for the most:
+          store.createIndex('title', 'title', { unique: false });
+          store.createIndex('createdOn', 'createdOn', { unique: false });
+          store.createIndex('updatedOn', 'updatedOn', { unique: false });
+        },
+    });
 
-    if (idbAvailable()) {
-        idb = window.indexedDB
-    } else {
-        return idbUnavailableError();
-    }
-
-    const request = idb?.open(dbName, versionNumber);
-
-    request.onerror = (evt): void => {
-        console.error((evt.target as IDBOpenDBRequest)?.error);
-    }
-
-    request.onsuccess = (evt): IDBDatabase => {
-        db = (evt.target as IDBOpenDBRequest)?.result;
-        return db
-    }
-
-    request.onupgradeneeded = (evt): IDBDatabase => {
-        const db = (evt.target as IDBOpenDBRequest)?.result
-        const store = db.createObjectStore(
-          dbStoreName, { keyPath: 'id', autoIncrement: true });
-
-        store.createIndex('title', 'title', { unique: false });
-        store.createIndex('createdOn', 'createdOn', { unique: false });
-        store.createIndex('updatedOn', 'updatedOn', { unique: false });
-        return db
-      };
+export async function addNote(note: Note): Promise<number> {
+    return (await notesDBPromise).add(dbStoreName, note)
 }
 
-const getObjectStore = (db: IDBDatabase, store_name: string, mode: Mode ): IDBObjectStore => {
-    var tx = db.transaction(store_name, mode);
-    return tx.objectStore(store_name);
-  }
-
-const addNote = (db: IDBDatabase, note: Note): void => {
-    const store = getObjectStore(db, dbStoreName, 'readwrite');
-    let req;
-    try {
-        req = store.add(note);
-    } catch (error: any) {
-        if (error.name == 'DataCloneError')
-        console.log("Error: ", error);
-        throw error;
-    }
-    req.onsuccess = function (evt) {
-      console.log("Insertion in DB successful");
-    };
-    req.onerror = function() {
-      console.error("addPublication error", this.error);
-    };
+export async function updateNote(val: Note) {
+    return (await notesDBPromise).put(dbStoreName, val);
 }
 
-export { idbOpener, addNote }
+
+export async function deleteNote(key: number) {
+    return (await notesDBPromise).delete(dbStoreName, key);
+}

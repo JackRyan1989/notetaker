@@ -3,7 +3,8 @@ import { ReactElement, useContext } from "react";
 import NotesContext from './NotesContext'
 import { makeUintArray } from "../helpers/crypto";
 import omit from "../helpers/omit";
-import { Note } from './NoteDisplay'
+import { Note } from './NoteDisplay';
+import { idbAvailable, addNote, updateNote } from "../db/indexedDB";
 
 const TextArea = (): ReactElement => {
     const {notes,
@@ -44,7 +45,7 @@ const TextArea = (): ReactElement => {
             setError('noteContentEntry')
             return
         }
-        if (!error && !editing) {
+        if (!error && !editing) { // Save the note
             const note = {
                 title,
                 content,
@@ -54,6 +55,9 @@ const TextArea = (): ReactElement => {
                 prevVersions: []
             }
             setNotes([...notes, note])
+            if (idbAvailable()) {
+                addNote(note)
+            }
             resetState()
         } else if (!error && editing) {
             saveEditedNote();
@@ -76,7 +80,9 @@ const TextArea = (): ReactElement => {
             prevVersions: [...notes[editNoteIndex].prevVersions, omit('prevVersions', notes[editNoteIndex])]
         }
         setNotes([...newNotes])
-        console.log(notes)
+        if (idbAvailable()) {
+            updateNote(newNotes[editNoteIndex])
+        }
     }
 
     const clearValues = (element: HTMLInputElement | HTMLTextAreaElement): void => {
