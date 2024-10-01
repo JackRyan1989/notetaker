@@ -3,6 +3,7 @@ import { idbAvailable, getNotes } from "./db/indexedDB"
 import Layout from "./components/Layout"
 import NoteColumn, { Notes } from "./components/NoteDisplay"
 import TextEntryColumn from "./components/TextArea"
+import MarkdownPreview from "./components/MarkdownPreview"
 import NotesContext from './components/NotesContext'
 import { useEffect, useState } from "react"
 
@@ -48,8 +49,11 @@ function App() {
     }}>
       <Header />
       <Layout>
-        <TextEntryColumn/>
-        <NoteColumn/>
+          <TextEntryColumn/>
+          <MarkdownPreview/>
+      </Layout>
+      <Layout>
+          <NoteColumn/>
       </Layout>
     </NotesContext.Provider>
   )

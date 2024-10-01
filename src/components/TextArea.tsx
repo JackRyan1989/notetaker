@@ -108,7 +108,7 @@ const TextArea = (): ReactElement => {
         <TextField placeholder={editing? title: ''} name="noteTitleEntry" label="Note Title" onChange={onChangeHandler} autoFocus={true} errorMessage={(error === 'noteTitleEntry') && 'Add note title.'} inputRef={clearValues}/>
         <TextField placeholder={editing? content: ''} name="noteContentEntry" label="Note Content" multiline={true} rows={6} onChange={onChangeHandler} errorMessage={(error === 'noteContentEntry') && 'Add note content.'} inputRef={clearValues}/>
         <Button type='submit' className="ds-u-margin-top--3 ds-u-margin-right--3" variation="solid" onClick={onSaveHandler}>Save</Button>
-        <Button type='button' className="ds-u-margin-top--3 ds-u-margin-right--3" variation="ghost" onClick={onCancelHandler}>Cancel</Button>
+        <Button type='button' className="ds-u-margin-top--3 ds-u-margin-right--3" variation="ghost" onClick={onCancelHandler}>Clear</Button>
     </div>
     )
 }

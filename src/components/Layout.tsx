@@ -6,7 +6,7 @@ interface LayoutProps {
 
 const Layout = ({children}: LayoutProps) => {
     return (
-        <div className="ds-l-row ds-u-margin--0 full-height">
+        <div className="ds-l-row ds-u-margin--0 full-height c-page-header-full-width">
             {children}
         </div>
     )
