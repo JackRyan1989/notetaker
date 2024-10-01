@@ -27,7 +27,7 @@ export const idbUnavailableError = (): Error => {
     throw new Error(message)
 }
 
-const notesDBPromise =  await openDB<NotesDB>(dbName, versionNumber, {
+const notesDBPromise = openDB<NotesDB>(dbName, versionNumber, {
         upgrade(db) {
           // Create a store of objects
           const store = db.createObjectStore(dbStoreName, {
