@@ -3,7 +3,6 @@ import {
     AccordionItem,
     Alert,
     Button,
-    Tooltip,
 } from "@cmsgov/design-system";
 import { ReactElement, useContext } from "react";
 import NotesContext from "./NotesContext";
@@ -65,36 +64,9 @@ const NoteList = (): ReactElement => {
         }
     };
 
-    const tooltipContent = (note: Note): ReactElement => {
-        if (note.updatedOn) {
-            return (
-                <Tooltip
-                    placement="left-start"
-                    title={"Created on " + (note.createdOn?.toLocaleString())}
-                    className="ds-c-tooltip__trigger-link"
-                    component={"a"}
-                >
-                    Last updated {note.updatedOn.toLocaleString()}
-                </Tooltip>
-            );
-        } else {
-            return (
-                <Tooltip
-                    placement="left-start"
-                    title={"No updates yet."}
-                    className="ds-c-tooltip__trigger-link"
-                    component={"a"}
-                >
-                    Created on {note.createdOn.toLocaleString()}
-                </Tooltip>
-            );
-        }
-    };
-
     const sortNotes = (): Notes => {
         return notes.toSorted((firstNote: Note, nextNote: Note) => {
-            return (new Date(firstNote["createdOn"]) as any) -
-                (new Date(nextNote["createdOn"]) as any);
+            return (new Date(nextNote["createdOn"]) as any) - (new Date(firstNote["createdOn"]) as any);
         });
     };
 
@@ -107,11 +79,8 @@ const NoteList = (): ReactElement => {
                     return (
                         <AccordionItem key={index} heading={note.title}>
                             <div className="ds-l-row-lg">
-                                {tooltipContent(note)}
-                                <p>{note.content}</p>
                                 <NoteHistoryDisplay
-                                    prevVersions={note.prevVersions}
-                                    note
+                                    note={note}
                                 />
                             </div>
                             <div className="ds-l-col--6">
@@ -122,7 +91,7 @@ const NoteList = (): ReactElement => {
                                     className="ds-u-margin-top--3"
                                     variation="solid"
                                 >
-                                    Edit
+                                    Edit Latest Version
                                 </Button>
                                 <Button
                                     id={`${note.id}`}
@@ -131,7 +100,7 @@ const NoteList = (): ReactElement => {
                                     className="ds-u-margin-top--3"
                                     variation="ghost"
                                 >
-                                    Delete
+                                    Delete Whole Thang
                                 </Button>
                             </div>
                         </AccordionItem>
