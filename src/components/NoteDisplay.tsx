@@ -3,6 +3,9 @@ import {
     AccordionItem,
     Alert,
     Button,
+    DownloadIcon,
+    Tooltip,
+    WarningIcon
 } from "@cmsgov/design-system";
 import { ReactElement, useContext } from "react";
 import NotesContext from "./NotesContext";
@@ -66,8 +69,17 @@ const NoteList = (): ReactElement => {
 
     const sortNotes = (): Notes => {
         return notes.toSorted((firstNote: Note, nextNote: Note) => {
-            return (new Date(nextNote["createdOn"]) as any) - (new Date(firstNote["createdOn"]) as any);
+            return (new Date(nextNote["createdOn"]) as any) -
+                (new Date(firstNote["createdOn"]) as any);
         });
+    };
+
+    const constructFileContent = (note: Note): string => {
+        const rawContent =
+            `${note.title}\n${note.createdOn.toLocaleString()}\n${
+                note.content.split("#").join("%23")
+            }`;
+        return encodeURI(rawContent);
     };
 
     const sortedNotes = sortNotes();
@@ -83,7 +95,7 @@ const NoteList = (): ReactElement => {
                                     note={note}
                                 />
                             </div>
-                            <div className="ds-l-col--6">
+                            <div className="ds-l-col--12">
                                 <Button
                                     id={`${note.id}`}
                                     name="editNote"
@@ -97,11 +109,29 @@ const NoteList = (): ReactElement => {
                                     id={`${note.id}`}
                                     name="deleteNote"
                                     onClick={changeNote}
-                                    className="ds-u-margin-top--3"
-                                    variation="ghost"
+                                    className="ds-u-margin-top--3 ds-u-margin-x--3"
                                 >
-                                    Delete Whole Thang
+                                    Delete Whole Thang <WarningIcon />
                                 </Button>
+                                <a
+                                    href={`data:text/markdown;charset=utf-8,${
+                                        constructFileContent(note)
+                                    }`}
+                                    download={`${
+                                        note.title.split(" ").join("-")
+                                    }.md`}
+                                >
+                                    <Tooltip
+                                        className="ds-c-tooltip__trigger-link"
+                                        component={"a"}
+                                        title="Download Markdown file containing the latest version of the note."
+                                    >
+                                        <DownloadIcon
+                                            ariaHidden={false}
+                                            title="Download Markdown file containing the latest version of the note."
+                                        />
+                                    </Tooltip>
+                                </a>
                             </div>
                         </AccordionItem>
                     );

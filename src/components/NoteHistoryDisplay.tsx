@@ -1,3 +1,4 @@
+import Markdown from "react-markdown"
 import { TabPanel, Tabs } from "@cmsgov/design-system";
 import { ReactElement } from "react";
 import { Note } from "./NoteDisplay";
@@ -6,15 +7,15 @@ const tabContent = (obj: Note): ReactElement => {
     return (
         <>
             <h3 className="ds-text-heading--lg">{obj.title}</h3>
-            <p>{obj.content}</p>
-            <p>
+            <Markdown className="ds-content">{obj.content}</Markdown>
+            <p><em>
                 Created on: {obj.createdOn
                     .toLocaleString()}
-            </p>
-            <p>
+            </em></p>
+            <p><em>
                 Last updated {obj?.updatedOn
                     ?.toLocaleString() ?? 'never!'}
-            </p>
+            </em></p>
         </>
     );
 };
