@@ -1,9 +1,31 @@
 import Markdown from "react-markdown"
-import { TabPanel, Tabs } from "@cmsgov/design-system";
-import { ReactElement } from "react";
+import { Button, TabPanel, Tabs } from "@cmsgov/design-system";
+import { ReactElement, useState } from "react";
 import { Note } from "./NoteDisplay";
 
 const tabContent = (obj: Note): ReactElement => {
+    const [copied, setCopied] = useState(false);
+
+    const copyContent = async (content: string): Promise<void> => {
+        const type = "text/plain";
+        const blob = new Blob([content], { type });
+        console.log(blob)
+        const data = [new ClipboardItem({ [type]: blob })];
+        await navigator.clipboard.write(data);
+    }
+
+    const copyHandler = (): undefined => {
+        setCopied(false);
+        Promise.allSettled([copyContent(obj.content)]).then((res)=>{
+            if (res[0].status === 'fulfilled') {
+                setCopied(true)
+            } else {
+                setCopied(false)
+            }
+        })
+        setTimeout(() => setCopied(false), 1000)
+    }
+
     return (
         <>
             <h3 className="ds-text-heading--lg">{obj.title}</h3>
@@ -16,6 +38,9 @@ const tabContent = (obj: Note): ReactElement => {
                 Last updated {obj?.updatedOn
                     ?.toLocaleString() ?? 'never!'}
             </em></p>
+            <Button className="ds-u-margin-y--3" onClick={copyHandler}>
+                {copied ? "Copied!" : 'Copy Note Content'}
+            </Button>
         </>
     );
 };
