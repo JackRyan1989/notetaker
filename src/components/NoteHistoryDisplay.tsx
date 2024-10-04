@@ -1,31 +1,9 @@
 import Markdown from "react-markdown"
 import { Button, TabPanel, Tabs } from "@cmsgov/design-system";
-import { ReactElement, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Note } from "./NoteDisplay";
 
-const tabContent = (obj: Note): ReactElement => {
-    const [copied, setCopied] = useState(false);
-
-    const copyContent = async (content: string): Promise<void> => {
-        const type = "text/plain";
-        const blob = new Blob([content], { type });
-        console.log(blob)
-        const data = [new ClipboardItem({ [type]: blob })];
-        await navigator.clipboard.write(data);
-    }
-
-    const copyHandler = (): undefined => {
-        setCopied(false);
-        Promise.allSettled([copyContent(obj.content)]).then((res)=>{
-            if (res[0].status === 'fulfilled') {
-                setCopied(true)
-            } else {
-                setCopied(false)
-            }
-        })
-        setTimeout(() => setCopied(false), 1000)
-    }
-
+const tabContent = (obj: Note, copied: boolean, copyHandler: any): ReactElement => {
     return (
         <>
             <h3 className="ds-text-heading--lg">{obj.title}</h3>
@@ -48,7 +26,32 @@ const tabContent = (obj: Note): ReactElement => {
 export default function NoteHistoryDisplay(
     { ...props }: any,
 ): ReactElement {
+    const [copied, setCopied] = useState(false);
     const { note } = props;
+
+    useEffect(() => {
+        document.addEventListener('paste',(_e: Event) => {
+            setCopied(false)
+        })
+    }, [])
+
+    const copyContent = async (content: string): Promise<void> => {
+        const type = "text/plain";
+        const blob = new Blob([content], { type });
+        const data = [new ClipboardItem({ [type]: blob })];
+        await navigator.clipboard.write(data);
+    }
+
+    const copyHandler = (): undefined => {
+        setCopied(false);
+        Promise.allSettled([copyContent(note.content)]).then((res)=>{
+            if (res[0].status === 'fulfilled') {
+                setCopied(true)
+            } else {
+                setCopied(false)
+            }
+        })
+    }
 
     return (
         <>
@@ -60,7 +63,7 @@ export default function NoteHistoryDisplay(
                             id={note.id}
                             tab={"Latest Version"}
                         >
-                            {tabContent(note)}
+                            {tabContent(note, copied, copyHandler)}
                         </TabPanel>
                         {note.prevVersions.map(
                             (version: Note, index: number) => {
@@ -70,7 +73,7 @@ export default function NoteHistoryDisplay(
                                         id={`${index}`}
                                         tab={`Version ${index + 1}`}
                                     >
-                                    {tabContent(version)}
+                                    {tabContent(version, copied, copyHandler)}
                                     </TabPanel>
                                 );
                             },

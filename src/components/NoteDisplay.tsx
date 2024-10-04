@@ -123,7 +123,6 @@ const NoteList = (): ReactElement => {
                                 >
                                     <Tooltip
                                         className="ds-c-tooltip__trigger-link"
-                                        component={"a"}
                                         title="Download Markdown file containing the latest version of the note."
                                     >
                                         <DownloadIcon
