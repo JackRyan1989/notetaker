@@ -37,7 +37,7 @@ const NoteList = (): ReactElement => {
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ): void => {
         event.preventDefault();
-        const id = parseInt(event?.target?.id);
+        const id = Number(event?.target?.id);
         const type = event?.target?.name;
         for (const note of notes) {
             if (note.id === id) {

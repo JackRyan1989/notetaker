@@ -98,6 +98,18 @@ const TextArea = (): ReactElement => {
         if (element && !editing && !valueLock) {
             element.value = "";
         }
+        if (element && editing && !valueLock) {
+            switch (element?.tagName) {
+                case "INPUT":
+                    element.value = title;
+                    break;
+                case "TEXTAREA":
+                    element.value = content;
+                    break;
+                default:
+                    break;
+            }
+        }
     };
 
     const resetState = (): void => {
