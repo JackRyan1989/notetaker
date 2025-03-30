@@ -92,7 +92,7 @@ const TextArea = (): ReactElement => {
         }
     };
 
-    const clearValues = (
+    const resetValues = (
         element: HTMLInputElement | HTMLTextAreaElement,
     ): void => {
         if (element && !editing && !valueLock) {
@@ -133,7 +133,7 @@ const TextArea = (): ReactElement => {
                 onChange={onChangeHandler}
                 autoFocus={true}
                 errorMessage={(error === "noteTitleEntry") && "Add note title."}
-                inputRef={clearValues}
+                inputRef={resetValues}
             />
             <TextField
                 placeholder={editing ? content : ""}
@@ -144,7 +144,7 @@ const TextArea = (): ReactElement => {
                 onChange={onChangeHandler}
                 errorMessage={(error === "noteContentEntry") &&
                     "Add note content."}
-                inputRef={clearValues}
+                inputRef={resetValues}
             />
             <Button
                 type="submit"
