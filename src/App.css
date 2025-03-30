@@ -1,2 +1,6 @@
 @import '@cmsgov/design-system/dist/css/index';
 @import '@cmsgov/design-system/css/core-theme';
+
+input[type="checkbox"] {
+    display: inline-block
+}

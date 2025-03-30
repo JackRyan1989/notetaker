@@ -2,12 +2,13 @@ import Markdown from "react-markdown"
 import { Button, TabPanel, Tabs } from "@cmsgov/design-system";
 import { ReactElement, useEffect, useState } from "react";
 import { Note } from "./NoteDisplay";
+import remarkGfm from "remark-gfm";
 
-const tabContent = (obj: Note, copied: boolean, copyHandler: any): ReactElement => {
+const tabContent = (obj: Note, copied: boolean, copyHandler: () => void): ReactElement => {
     return (
         <>
             <h3 className="ds-text-heading--lg">{obj.title}</h3>
-            <Markdown className="ds-content">{obj.content}</Markdown>
+            <Markdown remarkPlugins={[remarkGfm]} className="ds-content">{obj.content}</Markdown>
             <p><em>
                 Created on: {obj.createdOn
                     .toLocaleString()}
