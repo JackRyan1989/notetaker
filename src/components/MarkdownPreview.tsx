@@ -1,6 +1,7 @@
 import Markdown from "react-markdown"
 import NotesContext from "./NotesContext";
 import { ReactElement, useContext } from "react"
+import { Choice } from "@cmsgov/design-system";
 
 export default function MarkdownPreview(): ReactElement {
     const {
@@ -9,6 +10,9 @@ export default function MarkdownPreview(): ReactElement {
         } = useContext(NotesContext);
 
     const separator = `---`
+    const choiceComponent = {
+
+    }
 
     return (
         <div className="ds-l-lg-col ds-u-border--1 ds-u-margin--2">
