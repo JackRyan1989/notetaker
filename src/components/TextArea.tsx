@@ -30,11 +30,11 @@ const TextArea = (): ReactElement => {
         setValueLock(true);
         if (value) {
             setError("");
-            if (name === "noteTitleEntry") {
-                setTitle(value);
-            } else if (name == "noteContentEntry") {
-                setContent(value);
-            }
+        }
+        if (name === "noteTitleEntry") {
+            setTitle(value);
+        } else if (name == "noteContentEntry") {
+            setContent(value);
         }
     };
 
@@ -130,6 +130,7 @@ const TextArea = (): ReactElement => {
                 placeholder={editing ? title : ""}
                 name="noteTitleEntry"
                 label="Note Title"
+                value={title}
                 onChange={onChangeHandler}
                 autoFocus={true}
                 errorMessage={(error === "noteTitleEntry") && "Add note title."}
@@ -139,6 +140,7 @@ const TextArea = (): ReactElement => {
                 placeholder={editing ? content : ""}
                 name="noteContentEntry"
                 label="Note Content"
+                value={content}
                 multiline={true}
                 rows={6}
                 onChange={onChangeHandler}
@@ -147,7 +149,7 @@ const TextArea = (): ReactElement => {
                 inputRef={resetValues}
             />
             <Button
-                type="submit"
+                type="button"
                 className="ds-u-margin-top--3 ds-u-margin-right--3"
                 variation="solid"
                 onClick={onSaveHandler}
