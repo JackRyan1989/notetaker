@@ -1,4 +1,4 @@
-const makeUintArray = (elems: Array<any> | number): Uint16Array | Array<number> => {
+const makeUintArray = (elems: Array<unknown> | number): Uint16Array | Array<number> => {
     let uintArray: Uint16Array
     if (Array.isArray(elems)) {
         uintArray = new Uint16Array(elems.length)
