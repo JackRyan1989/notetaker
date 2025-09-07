@@ -6,6 +6,7 @@ export interface NotesContextType {
   setNotes: React.Dispatch<React.SetStateAction<Notes>>
 }
 
-const NotesContext = createContext<NotesContextType | null>(null);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const NotesContext = createContext<any | null>(null);
 
 export default NotesContext

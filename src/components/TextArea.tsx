@@ -135,7 +135,8 @@ const TextArea = (): ReactElement => {
                 }],
                 multiple: false,
             };
-            const fsHandles = await showOpenFilePicker(opts);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const fsHandles = await (window as unknown as any).showOpenFilePicker(opts);
             return fsHandles;
         } catch {
             console.error("Could not upload file.");
