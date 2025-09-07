@@ -4,7 +4,7 @@ import NotesContext from "./NotesContext";
 import { makeUintArray } from "../helpers/crypto";
 import omit from "../helpers/omit";
 import { Note } from "./NoteDisplay";
-import { addNote, idbAvailable, updateNote } from "../db/indexedDB";
+import { addNote, getNotes, idbAvailable, updateNote } from "../db/indexedDB";
 
 const TextArea = (): ReactElement => {
     const {
@@ -124,6 +124,62 @@ const TextArea = (): ReactElement => {
         resetState();
     };
 
+    const getFileHandles = async (): Promise<
+        Array<FileSystemFileHandle> | []
+    > => {
+        try {
+            const opts = {
+                types: [{
+                    description: "Markdown only",
+                    accept: { "text/*": [".md"] },
+                }],
+                multiple: false,
+            };
+            const fsHandles = await showOpenFilePicker(opts);
+            return fsHandles;
+        } catch {
+            console.error("Could not upload file.");
+            return [];
+        }
+    };
+
+    const parseNote = (note: string): Note => {
+        const [title, createdAt, ...content] = note.split("\n");
+        return {
+            title,
+            content: content.join("\n"),
+            createdOn: createdAt,
+            updatedOn: null,
+            id: makeUintArray(1)[0],
+            prevVersions: [],
+        };
+    };
+
+    const uploadNote = async () => {
+        const [handles] = await getFileHandles();
+        const file = await handles.getFile();
+
+        const reader = new FileReader();
+
+        reader.onload = async () => {
+            const res = reader.result;
+            if (typeof res !== "string") {
+                throw Error("Reader result is not a string!")
+            }
+            const uploadedNote = parseNote(reader.result as string);
+            if (idbAvailable()) {
+                addNote(uploadedNote);
+                const ns = await getNotes()
+                setNotes(ns);
+            }
+        };
+        reader.onerror = () => {
+            console.error("Error reading the file. Please try again.", "error");
+        };
+
+        reader.readAsText(file);
+    };
+
     return (
         <div>
             <TextField
@@ -163,6 +219,13 @@ const TextArea = (): ReactElement => {
                 onClick={onCancelHandler}
             >
                 Clear
+            </Button>
+            <Button
+                name="uploadNote"
+                className="ds-u-margin-top--3 ds-u-margin-x--3"
+                onClick={uploadNote}
+            >
+                Upload Note
             </Button>
         </div>
     );

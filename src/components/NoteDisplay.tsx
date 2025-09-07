@@ -5,7 +5,7 @@ import {
     Button,
     DownloadIcon,
     Tooltip,
-    WarningIcon
+    WarningIcon,
 } from "@cmsgov/design-system";
 import { ReactElement, useContext } from "react";
 import NotesContext from "./NotesContext";
@@ -69,8 +69,8 @@ const NoteList = (): ReactElement => {
 
     const sortNotes = (): Notes => {
         return notes.toSorted((firstNote: Note, nextNote: Note) => {
-            return (new Date(nextNote["createdOn"]) as any) -
-                (new Date(firstNote["createdOn"]) as any);
+            return (new Date(nextNote["createdOn"]) as unknown as number) -
+                (new Date(firstNote["createdOn"]) as unknown as number);
         });
     };
 
