@@ -29,11 +29,16 @@ export default function NoteHistoryDisplay(
 ): ReactElement {
     const [copied, setCopied] = useState(false);
     const { note } = props;
+    const [selectedTab, setSelectedTab] = useState(note.id)
 
     useEffect(() => {
-        document.addEventListener('paste',(_e: Event) => {
+        document.addEventListener('paste',() => {
             setCopied(false)
         })
+
+        return () => {
+            document.removeEventListener('paste', () => { setCopied(false) })
+        }
     }, [])
 
     const copyContent = async (content: string): Promise<void> => {
@@ -58,7 +63,10 @@ export default function NoteHistoryDisplay(
         <>
             {note
                 ? (
-                    <Tabs defaultSelectedId={note.id}>
+                    <Tabs selectedId={selectedTab}
+                    onChange={(newId) => {
+                        setSelectedTab(newId)
+                    }}>
                         <TabPanel
                             key={note.id}
                             id={note.id}
